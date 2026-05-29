@@ -1,0 +1,28 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+    --font-sans: var(--font-google-sans);
+    --color-background: var(--background);
+    --color-foreground: var(--foreground);
+    --color-muted: var(--muted);
+}
+
+:root {
+    --foreground: #1a1a1a;
+    --background: #fafafa;
+    --muted: #858585;
+}
+
+.dark {
+    --foreground: #fafafa;
+    --background: #1a1a1a;
+    --muted: #858585;
+}
+
+@layer base {
+  body {
+    @apply bg-background text-foreground;
+  }
+}

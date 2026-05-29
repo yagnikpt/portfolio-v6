@@ -12,6 +12,14 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.4.2"
+    "@astrojs/solid-js": "^6.0.1",
+    "@lucide/astro": "^1.17.0",
+    "@tabler/icons-solidjs": "^3.44.0",
+    "@tailwindcss/vite": "^4.3.0",
+    "astro": "^6.4.2",
+    "clsx": "^2.1.1",
+    "solid-js": "^1.9.13",
+    "tailwind-merge": "^3.6.0",
+    "tailwindcss": "^4.3.0"
   }
 }
