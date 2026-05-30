@@ -1,28 +1,39 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
     --font-sans: var(--font-google-sans);
+    --font-serif: var(--font-playfair-display);
     --color-background: var(--background);
     --color-foreground: var(--foreground);
     --color-muted: var(--muted);
+    --color-border: var(--border);
 }
 
 :root {
     --foreground: #1a1a1a;
     --background: #fafafa;
     --muted: #858585;
+    --border: #F0F0F0;
 }
 
 .dark {
     --foreground: #fafafa;
     --background: #1a1a1a;
     --muted: #858585;
+    --border: #333333;
 }
 
 @layer base {
-  body {
-    @apply bg-background text-foreground;
-  }
+    * {
+        @apply border-border;
+    }
+    html, body {
+        @apply h-full;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
 }

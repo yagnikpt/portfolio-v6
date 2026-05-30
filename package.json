@@ -1,25 +1,30 @@
 {
-  "name": "portfolio_site",
-  "type": "module",
-  "version": "0.0.1",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "preview": "astro preview",
-    "astro": "astro"
-  },
-  "dependencies": {
-    "@astrojs/solid-js": "^6.0.1",
-    "@lucide/astro": "^1.17.0",
-    "@tabler/icons-solidjs": "^3.44.0",
-    "@tailwindcss/vite": "^4.3.0",
-    "astro": "^6.4.2",
-    "clsx": "^2.1.1",
-    "solid-js": "^1.9.13",
-    "tailwind-merge": "^3.6.0",
-    "tailwindcss": "^4.3.0"
-  }
+	"name": "portfolio_site",
+	"type": "module",
+	"version": "0.0.1",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev --host",
+		"build": "astro build",
+		"preview": "astro preview --host",
+		"astro": "astro"
+	},
+	"dependencies": {
+		"@astrojs/markdown-satteri": "^0.2.1",
+		"@astrojs/solid-js": "^6.0.1",
+		"@lucide/astro": "^1.17.0",
+		"@tailwindcss/vite": "^4.3.0",
+		"@yeskunall/astro-umami": "^0.0.8",
+		"astro": "^6.4.2",
+		"clsx": "^2.1.1",
+		"solid-js": "^1.9.13",
+		"tailwind-merge": "^3.6.0",
+		"tailwindcss": "^4.3.0"
+	},
+	"devDependencies": {
+		"@tailwindcss/typography": "^0.5.19",
+		"@types/node": "^25.9.1"
+	}
 }

@@ -6,20 +6,11 @@ import GalaryImage from "@/assets/projects/galary.webp";
 import HigrowImage from "@/assets/projects/higrow.webp";
 import MangaReaderImage from "@/assets/projects/mangareader.webp";
 import RPSImage from "@/assets/projects/rps.webp";
+import TpaperEditImage from "@/assets/projects/tpaper-edit.webp";
+import TpaperMainImage from "@/assets/projects/tpaper-main.webp";
 import WhRelayImage from "@/assets/projects/whrelay.webp";
 
 export const projects = [
-	{
-		name: "Flashback",
-		description:
-			"A command-line knowledge store. It captures text, URLs, and commands, extracts structured metadata, and makes everything searchable.",
-		image: [FlashbackImage],
-		tech: ["Go", "Bubbletea", "Gemini", "SQLite"],
-		links: {
-			repo: "https://github.com/yagnikpt/flashback",
-		},
-		category: "CLI",
-	},
 	{
 		name: "Admission Scraper",
 		description:
@@ -31,6 +22,28 @@ export const projects = [
 			repo: "https://github.com/yagnikpt/admission-scraper",
 		},
 		category: "Real World",
+	},
+	{
+		name: "tpaper",
+		description:
+			"A terminal-based note-taking app built around the idea of buffers and blocks.",
+		image: [TpaperMainImage, TpaperEditImage],
+		tech: ["TypeScript", "OpenTUI", "Solidjs", "Bun"],
+		links: {
+			repo: "https://github.com/yagnikpt/tpaper",
+		},
+		category: "CLI",
+	},
+	{
+		name: "Flashback",
+		description:
+			"A command-line knowledge store. It captures text, URLs, and commands, extracts structured metadata, and makes everything searchable.",
+		image: [FlashbackImage],
+		tech: ["Go", "Bubbletea", "Gemini", "SQLite"],
+		links: {
+			repo: "https://github.com/yagnikpt/flashback",
+		},
+		category: "CLI",
 	},
 	{
 		name: "Mangasss",

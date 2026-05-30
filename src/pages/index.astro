@@ -1,16 +1,25 @@
 ---
 import { Image } from "astro:assets";
-import GithubIcon from "@/assets/icons/social/github.svg";
+import { getCollection } from "astro:content";
 import ProfileImage from "@/assets/profile.webp";
 import HomeTabs from "@/components/home-tabs";
 import Layout from "@/layouts/Layout.astro";
+import { featuredProjects } from "@/lib/projects";
+import { currentSkills, previouslyLearnedSkills } from "@/lib/skills";
+
+const allDevlogPosts = (await getCollection("devlog")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+const allThoughtsPosts = (await getCollection("thought")).sort(
+    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
 ---
 
 <Layout>
     <main
-        class="pt-20 lg:pt-32 max-w-2xl mx-auto border-x-2 border-neutral-100"
+        class="pt-20 lg:pt-32 lg:max-w-2xl 2xl:max-w-3xl mx-auto border-x-2 h-full"
     >
-        <header class="px-12">
+        <header class="px-8 md:px-12">
             <Image
                 class="size-16 rounded-full"
                 loading="eager"
@@ -23,16 +32,181 @@ import Layout from "@/layouts/Layout.astro";
                 class="block w-fit underline decoration-2 underline-offset-2 decoration-muted hover:decoration-foreground transition-colors"
                 href="mailto:yagnik.pt@gmail.com">yagnik.pt@gmail.com</a
             >
-            <a
+            <!-- <a
                 class="flex w-fit items-center gap-1 mt-6 text-muted hover:text-foreground transition-colors"
                 href="https://github.com/yagnikpt"
             >
                 <GithubIcon class="size-4 inline-block" />
                 <span class="inline-block">yagnikpt</span>
-            </a>
+            </a> -->
         </header>
         <section class="mt-8">
-            <HomeTabs client:load />
+            <!-- @ts-ignore: already passing childs with slots -->
+            <HomeTabs client:load>
+                <div slot="info">
+                    <div
+                        class="grid gap-y-4 md:grid-cols-[1fr_4fr] px-8 md:px-12"
+                    >
+                        <h4 class="text-muted">Projects</h4>
+                        <div class="flex flex-col gap-8">
+                            {
+                                featuredProjects.map((item) => (
+                                    <div>
+                                        {item.links.site ? (
+                                            <div class="flex gap-2 items-center">
+                                                <a
+                                                    target="_blank"
+                                                    rel="noreferrer"
+                                                    class="underline decoration-2 decoration-muted"
+                                                    href={item.links.site}
+                                                >
+                                                    {item.name}
+                                                </a>
+                                                {" | "}
+                                                {item.links.repo && (
+                                                    <a
+                                                        class="underline decoration-2 decoration-muted"
+                                                        target="_blank"
+                                                        rel="noreferrer"
+                                                        href={item.links.repo}
+                                                    >
+                                                        Repo
+                                                    </a>
+                                                )}
+                                            </div>
+                                        ) : (
+                                            <a
+                                                target="_blank"
+                                                rel="noreferrer"
+                                                class="underline decoration-2 decoration-muted"
+                                                href={item.links.repo}
+                                            >
+                                                {item.name}
+                                            </a>
+                                        )}
+                                        <p class="text-muted text-sm mt-1">
+                                            {item.tech.join(", ")}
+                                        </p>
+                                        <p class="mt-2 text-pretty">
+                                            {item.description}
+                                        </p>
+                                        <div class="flex gap-2 mt-4">
+                                            {item.image.map((i) => (
+                                                <Image
+                                                    class="h-20 w-auto rounded"
+                                                    src={i}
+                                                    alt={item.name}
+                                                    loading="eager"
+                                                />
+                                            ))}
+                                        </div>
+                                    </div>
+                                ))
+                            }
+                        </div>
+                    </div>
+                    <div
+                        class="grid gap-y-4 md:grid-cols-[1fr_4fr] mt-8 border-t-2 px-8 md:px-12 pt-8"
+                    >
+                        <h4 class="text-muted">Now</h4>
+                        <div>
+                            <p class="text-pretty">
+                                These days I'm learning Go by building CLIs,
+                                studying system design, and reading more about
+                                how software works under the hood. The goal is
+                                to understand the layers underneath the
+                                abstractions I use every day.
+                            </p>
+                            <div class="flex gap-2 items-center flex-wrap mt-2">
+                                {
+                                    currentSkills.map((s) => (
+                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-[#dfdfdf] h-5.5 cursor-default gap-1.5 bg-[#ECECEE] px-1.5 pr-2 text-xs align-middle text-foreground">
+                                            <s.icon class="size-3.5 pointer-events-none shrink-0" />
+                                            <span>{s.label}</span>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <div
+                        class="grid gap-y-4 md:grid-cols-[1fr_4fr] mt-4 px-8 md:px-12 pt-4"
+                    >
+                        <h4 class="text-muted">Previously</h4>
+                        <div>
+                            <p class="text-pretty">
+                                I got really into frontend part building
+                                animations and interactions that felt natural
+                                instead of decorative. I also went deep on
+                                meta-frameworks, building stuff with Next.js,
+                                SvelteKit, Astro and with tools like Drizzle
+                                ORM, and PostgreSQL.
+                            </p>
+                            <div class="flex gap-2 items-center flex-wrap mt-2">
+                                {
+                                    previouslyLearnedSkills.map((s) => (
+                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-[#dfdfdf] h-5.5 cursor-default gap-1.5 bg-[#ECECEE] px-1.5 pr-2 text-xs align-middle text-foreground">
+                                            <s.icon class="size-3.5 pointer-events-none shrink-0" />
+                                            <span>{s.label}</span>
+                                        </div>
+                                    ))
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div slot="devlog" class="space-y-2 px-5 md:px-9">
+                    {
+                        allDevlogPosts.map((p) => (
+                            <a
+                                href={`/devlog/${p.id}`}
+                                class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
+                            >
+                                <h4 class="line-clamp-1">{p.data.title}</h4>
+                                <span class="text-muted shrink-0">
+                                    {(() => {
+                                        const date = new Date(p.data.pubDate);
+                                        return date.toLocaleDateString(
+                                            "en-US",
+                                            {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            },
+                                        );
+                                    })()}
+                                </span>
+                            </a>
+                        ))
+                    }
+                </div>
+                <div slot="thoughts" class="space-y-2 px-5 md:px-9">
+                    {
+                        allThoughtsPosts.map((p) => (
+                            <a
+                                href={`/thought/${p.id}`}
+                                class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
+                            >
+                                <h4 class="line-clamp-1">{p.data.title}</h4>
+                                <span class="text-muted shrink-0">
+                                    {(() => {
+                                        const date = new Date(p.data.pubDate);
+                                        return date.toLocaleDateString(
+                                            "en-US",
+                                            {
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            },
+                                        );
+                                    })()}
+                                </span>
+                            </a>
+                        ))
+                    }
+                </div>
+            </HomeTabs>
         </section>
     </main>
 </Layout>

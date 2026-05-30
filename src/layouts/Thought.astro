@@ -1,0 +1,60 @@
+---
+import "@/styles/global.css";
+import { Font } from "astro:assets";
+import type { InferEntrySchema } from "astro:content";
+import { CalendarDays, Undo2 } from "@lucide/astro";
+
+interface Props {
+    thought: InferEntrySchema<"thought">;
+}
+
+const { thought } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonicalURL} />
+        <meta name="generator" content={Astro.generator} />
+        <Font cssVariable="--font-google-sans" />
+        <Font cssVariable="--font-playfair-display" />
+
+        <!-- Primary Meta Tags -->
+        <title>{thought.title} - Yagnik Patel</title>
+        <meta name="title" content={`${thought.title} - Yagnik Patel`} />
+        <meta name="description" content="just an interesting thought ig" />
+    </head>
+
+    <body>
+        <main class="pt-20 lg:pt-32 lg:max-w-2xl 2xl:max-w-3xl mx-auto px-8">
+            <a
+                class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
+                href="/"
+            >
+                <Undo2 class="size-4" />
+                <span>Back to Home</span></a
+            >
+            <header class="my-6 py-4 border-b-2">
+                <h1 class="text-4xl font-medium font-serif">
+                    {thought.title}
+                </h1>
+                <div class="flex mt-4 gap-2 items-center text-foreground/75">
+                    <CalendarDays class="size-5" />
+                    <span class="text-sm">{formattedDate}</span>
+                </div>
+            </header>
+            <article class="prose dark:prose-invert max-w-none">
+                <slot />
+            </article>
+        </main>
+    </body>
+</html>

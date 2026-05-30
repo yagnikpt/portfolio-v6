@@ -1,0 +1,100 @@
+---
+import "@/styles/global.css";
+import { Font, Image } from "astro:assets";
+import type { InferEntrySchema } from "astro:content";
+import { CalendarDays, Undo2 } from "@lucide/astro";
+
+interface Props {
+    devlog: InferEntrySchema<"devlog">;
+}
+
+const { devlog } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+});
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonicalURL} />
+        <meta name="generator" content={Astro.generator} />
+        <Font cssVariable="--font-google-sans" />
+        <Font cssVariable="--font-playfair-display" />
+
+        <!-- Primary Meta Tags -->
+        <title>{devlog.title} - Yagnik Patel</title>
+        <meta name="title" content={`${devlog.title} - Yagnik Patel`} />
+        <meta name="description" content={devlog.description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={devlog.title} />
+        <meta property="og:description" content={devlog.description} />
+        {
+            devlog.heroImage && (
+                <meta
+                    property="og:image"
+                    content={new URL(devlog.heroImage.src, Astro.url)}
+                />
+            )
+        }
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={devlog.title} />
+        <meta property="twitter:description" content={devlog.description} />
+        {
+            devlog.heroImage && (
+                <meta
+                    property="twitter:image"
+                    content={new URL(devlog.heroImage.src, Astro.url)}
+                />
+            )
+        }
+    </head>
+
+    <body>
+        <main class="pt-20 lg:pt-32 lg:max-w-2xl 2xl:max-w-3xl mx-auto px-8">
+            <a
+                class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
+                href="/"
+            >
+                <Undo2 class="size-4" />
+                <span>Back to Home</span></a
+            >
+            <header class="my-6 py-4 border-b-2">
+                {
+                    devlog.heroImage && (
+                        <Image
+                            class="w-full rounded-xl mb-8"
+                            src={devlog.heroImage}
+                            alt={devlog.title}
+                        />
+                    )
+                }
+                <h1 class="text-4xl font-medium font-serif">
+                    {devlog.title}
+                </h1>
+                <p class="text-xl mt-4 text-foreground/75">
+                    {devlog.description}
+                </p>
+                <div class="flex mt-4 gap-2 items-center text-foreground/75">
+                    <CalendarDays class="size-5" />
+                    <span class="text-sm">{formattedDate}</span>
+                </div>
+            </header>
+            <article class="prose dark:prose-invert max-w-none">
+                <slot />
+            </article>
+        </main>
+    </body>
+</html>

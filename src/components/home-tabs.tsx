@@ -1,103 +1,69 @@
-import { IconBrandGithub } from "@tabler/icons-solidjs";
-import { createSignal, For, Match, Show, Switch } from "solid-js";
-import { featuredProjects } from "@/lib/projects";
+import type { JSX } from "solid-js";
+import { createSignal, Match, Switch } from "solid-js";
 import { cn } from "@/lib/utils";
 
-// interface Props {
+interface Props {
+	info: JSX.Element;
+	devlog: JSX.Element;
+	thoughts: JSX.Element;
+}
 
-// }
-
-export default function HomeTabs() {
+export default function HomeTabs(props: Props) {
 	const [tab, setTab] = createSignal("info");
+
+	function setActiveTab(tab: string) {
+		if (!document.startViewTransition) {
+			setTab(tab);
+			return;
+		}
+
+		document.startViewTransition(() => {
+			setTab(tab);
+		});
+	}
 
 	return (
 		<>
-			<div class="flex gap-6 items-center px-12">
+			<div class="flex gap-6 items-center px-8 md:px-12">
 				<button
 					type="button"
-					class={cn("text-muted", tab() === "info" && "text-foreground")}
-					onClick={() => setTab("info")}
+					class={cn(
+						"text-muted relative",
+						tab() === "info" &&
+							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+					)}
+					onClick={() => setActiveTab("info")}
 				>
 					Information
 				</button>
 				<button
 					type="button"
-					class={cn("text-muted", tab() === "devlog" && "text-foreground")}
-					onClick={() => setTab("devlog")}
+					class={cn(
+						"text-muted relative",
+						tab() === "devlog" &&
+							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+					)}
+					onClick={() => setActiveTab("devlog")}
 				>
 					DevLog
 				</button>
 				<button
 					type="button"
-					class={cn("text-muted", tab() === "thoughts" && "text-foreground")}
-					onClick={() => setTab("thoughts")}
+					class={cn(
+						"text-muted relative",
+						tab() === "thoughts" &&
+							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+					)}
+					onClick={() => setActiveTab("thoughts")}
 				>
 					Thoughts
 				</button>
 			</div>
-			<div class="border-t-2 border-neutral-100 px-12 mt-4 py-8">
+			<div class="border-t-2 mt-4 py-8">
 				<Switch>
-					<Match when={tab() === "info"}>
-						<div class="grid grid-cols-[1fr_4fr]">
-							<h4 class="text-muted">Projects</h4>
-							<div class="flex flex-col gap-8">
-								<For each={featuredProjects}>
-									{(item) => (
-										<div>
-											<Switch>
-												<Match when={item.links.site}>
-													<div class="flex gap-2 items-center">
-														<a
-															target="_blank"
-															rel="noreferrer"
-															class="underline decoration-2 decoration-muted"
-															href={item.links.site}
-														>
-															{item.name}
-														</a>
-														<Show when={item.links.repo}>
-															{(repo) => (
-																<a
-																	target="_blank"
-																	rel="noreferrer"
-																	href={repo()}
-																>
-																	<IconBrandGithub class="size-4" />
-																</a>
-															)}
-														</Show>
-													</div>
-												</Match>
-												<Match when={!item.links.site}>
-													<a
-														target="_blank"
-														rel="noreferrer"
-														class="underline decoration-2 decoration-muted"
-														href={item.links.repo}
-													>
-														{item.name}
-													</a>
-												</Match>
-											</Switch>
-											<p class="text-muted text-sm mt-1">
-												{item.tech.join(", ")}
-											</p>
-											<p class="mt-2 text-sm">{item.description}</p>
-											<div class="flex gap-2 mt-4">
-												{item.image.map((i) => (
-													<img
-														class="h-20 w-auto rounded"
-														src={i.src}
-														alt={item.name}
-													/>
-												))}
-											</div>
-										</div>
-									)}
-								</For>
-							</div>
-						</div>
-					</Match>
+					<Match when={tab() === "info"}>{props.info}</Match>
+					<Match when={tab() === "devlog"}>{props.devlog}</Match>
+					<Match when={tab() === "thoughts"}>{props.thoughts}</Match>
 				</Switch>
 			</div>
 		</>
