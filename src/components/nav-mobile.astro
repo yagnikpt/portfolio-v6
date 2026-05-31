@@ -1,0 +1,74 @@
+---
+import {
+    Home,
+    HomeFill,
+    Person,
+    PersonFill,
+} from "@material-symbols-svg/astro/rounded";
+
+interface Props {
+    pathname: string;
+}
+
+const { pathname } = Astro.props;
+---
+
+<nav
+    id="mobile-nav"
+    class="lg:hidden fixed flex justify-center bottom-2 bg-neutral-100 border-2 p-0.5 inset-x-0 z-10 w-fit mx-auto rounded-full"
+>
+    <div class="flex items-center">
+        <a href="/" class="text-foreground/90 relative px-6 py-0.5">
+            {
+                pathname === "/" && (
+                    <div
+                        style={{ viewTransitionName: "pill-bg" }}
+                        class="absolute inset-0 rounded-full bg-neutral-200 -z-1"
+                    />
+                )
+            }
+            <div
+                style={{ viewTransitionName: "nav-content-home" }}
+                class="flex flex-col items-center z-10"
+            >
+                {
+                    pathname === "/" ? (
+                        <HomeFill class="size-7 z-12" />
+                    ) : (
+                        <Home class="size-7 z-12" />
+                    )
+                }
+                <span class="text-[10px] font-bold">Home</span>
+            </div>
+        </a>
+        <a href="/about" class="text-foreground/90 relative px-6 py-0.5">
+            {
+                pathname === "/about" && (
+                    <div
+                        style={{ viewTransitionName: "pill-bg" }}
+                        class="absolute inset-0 rounded-full bg-neutral-200 -z-1"
+                    />
+                )
+            }
+            <div
+                style={{ viewTransitionName: "nav-content-about" }}
+                class="flex flex-col items-center z-10"
+            >
+                {
+                    pathname === "/about" ? (
+                        <PersonFill class="size-7 z-12" />
+                    ) : (
+                        <Person class="size-7 z-12" />
+                    )
+                }
+                <span class="text-[10px] font-bold">About</span>
+            </div>
+        </a>
+    </div>
+</nav>
+
+<style>
+    ::view-transition-group(pill-bg) {
+        z-index: -1;
+    }
+</style>

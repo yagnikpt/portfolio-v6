@@ -2,7 +2,7 @@
 import "@/styles/global.css";
 import { Font, Image } from "astro:assets";
 import type { InferEntrySchema } from "astro:content";
-import { CalendarDays, Undo2 } from "@lucide/astro";
+import { CalendarMonth, Undo } from "@material-symbols-svg/astro/rounded";
 
 interface Props {
     id: string;
@@ -71,7 +71,7 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
                 class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
                 href="/?tab=devlog"
             >
-                <Undo2 class="size-4" />
+                <Undo class="size-4" />
                 <span>Back to Home</span></a
             >
             <header class="my-6 py-4 border-b-2">
@@ -96,7 +96,7 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
                     {devlog.description}
                 </p>
                 <div class="flex mt-4 gap-2 items-center text-foreground/75">
-                    <CalendarDays class="size-5" />
+                    <CalendarMonth class="size-5" />
                     <span
                         style={{
                             viewTransitionName: `devlog-date-${id}`,

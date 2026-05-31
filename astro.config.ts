@@ -9,6 +9,7 @@ const env = loadEnv(process.env.NODE_ENV as string, process.cwd(), "");
 
 export default defineConfig({
 	site: env.SITE_URL ?? "http://localhost:4321",
+	trailingSlash: "never",
 	vite: {
 		plugins: [tailwindcss()],
 	},

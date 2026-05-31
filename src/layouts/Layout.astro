@@ -1,8 +1,8 @@
 ---
-// import Nav from "@/components/nav";
 import "@/styles/global.css";
 import { Font } from "astro:assets";
-import Nav from "@/components/nav-desktop.astro";
+import NavDesktop from "@/components/nav-desktop.astro";
+import NavMobile from "@/components/nav-mobile.astro";
 
 const pathname = Astro.url.pathname;
 ---
@@ -23,7 +23,8 @@ const pathname = Astro.url.pathname;
             class="[--content-w:42rem] 2xl:[--content-w:48rem]
           grid lg:grid-cols-[1fr_var(--content-w)_1fr] w-full h-full"
         >
-            <Nav pathname={pathname} />
+            <NavDesktop pathname={pathname} />
+            <NavMobile pathname={pathname} />
 
             <slot />
 
