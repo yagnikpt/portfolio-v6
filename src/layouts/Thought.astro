@@ -5,10 +5,11 @@ import type { InferEntrySchema } from "astro:content";
 import { CalendarDays, Undo2 } from "@lucide/astro";
 
 interface Props {
+    id: string;
     thought: InferEntrySchema<"thought">;
 }
 
-const { thought } = Astro.props;
+const { thought, id } = Astro.props;
 const canonicalURL = new URL(Astro.url.pathname, Astro.site);
 const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
     year: "numeric",
@@ -40,21 +41,27 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
         >
             <a
                 class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
-                href="/"
+                href="/?tab=thought"
             >
                 <Undo2 class="size-4" />
                 <span>Back to Home</span></a
             >
             <header class="my-6 py-4 border-b-2">
                 <h1
-                    class="text-3xl md:text-4xl font-medium font-serif w-fit [view-transition-name:post-title]"
+                    style={{
+                        viewTransitionName: `thought-title-${id}`,
+                    }}
+                    class="text-3xl md:text-4xl font-medium font-serif w-fit"
                 >
                     {thought.title}
                 </h1>
                 <div class="flex mt-4 gap-2 items-center text-foreground/75">
                     <CalendarDays class="size-5" />
-                    <span class="text-sm [view-transition-name:post-date]"
-                        >{formattedDate}</span
+                    <span
+                        style={{
+                            viewTransitionName: `thought-date-${id}`,
+                        }}
+                        class="text-sm">{formattedDate}</span
                     >
                 </div>
             </header>

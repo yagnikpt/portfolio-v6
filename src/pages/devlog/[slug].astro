@@ -14,6 +14,6 @@ const { devlog } = Astro.props;
 const { Content } = await render(devlog);
 ---
 
-<DevlogLayout devlog={devlog.data}>
+<DevlogLayout id={devlog.id} devlog={devlog.data}>
     <Content />
 </DevlogLayout>

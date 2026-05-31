@@ -43,21 +43,5 @@ const { pathname } = Astro.props;
                 )}>About</span
             >
         </a>
-        <a class="flex items-center gap-1" href="/projects">
-            {
-                pathname.startsWith("/projects") ? (
-                    <ArrowRightIcon class="size-4 text-foreground/90 [view-transition-name:active-path]" />
-                ) : (
-                    <div class="size-4" />
-                )
-            }
-            <span
-                class={cn(
-                    pathname.startsWith("/projects")
-                        ? "text-foreground"
-                        : "text-foreground/75",
-                )}>Projects</span
-            >
-        </a>
     </div>
 </nav>

@@ -108,7 +108,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                 </a>
             </div>
         </header>
-        <section id="tabs" class="mt-4">
+        <section id="tabs" class="mt-4 pb-12">
             <!-- @ts-ignore: already passing childs with slots -->
             <HomeTabs client:load>
                 <div slot="info">
@@ -203,7 +203,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                         <h4 class="text-muted">Previously</h4>
                         <div>
                             <p class="text-pretty">
-                                I got really into frontend part building
+                                I got really into frontend part, building
                                 animations and interactions that felt natural
                                 instead of decorative. I also went deep on
                                 meta-frameworks, building stuff with Next.js,
@@ -231,10 +231,20 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/devlog/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4 class="line-clamp-1 [view-transition-name:post-title]">
+                                <h4
+                                    style={{
+                                        viewTransitionName: `devlog-title-${p.id}`,
+                                    }}
+                                    class="line-clamp-1"
+                                >
                                     {p.data.title}
                                 </h4>
-                                <span class="text-muted shrink-0 [view-transition-name:post-date]">
+                                <span
+                                    style={{
+                                        viewTransitionName: `devlog-date-${p.id}`,
+                                    }}
+                                    class="text-muted shrink-0"
+                                >
                                     {(() => {
                                         const date = new Date(p.data.pubDate);
                                         return date.toLocaleDateString(
@@ -258,10 +268,20 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/thought/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4 class="line-clamp-1 [view-transition-name:post-title]">
+                                <h4
+                                    style={{
+                                        viewTransitionName: `thought-title-${p.id}`,
+                                    }}
+                                    class="line-clamp-1"
+                                >
                                     {p.data.title}
                                 </h4>
-                                <span class="text-muted shrink-0 [view-transition-name:post-date]">
+                                <span
+                                    style={{
+                                        viewTransitionName: `thought-date-${p.id}`,
+                                    }}
+                                    class="text-muted shrink-0"
+                                >
                                     {(() => {
                                         const date = new Date(p.data.pubDate);
                                         return date.toLocaleDateString(
