@@ -1,46 +1,43 @@
-# Astro Starter Kit: Basics
+# Yagnik Patel
+
+A small personal portfolio built with Astro. It keeps the focus on current work, a few projects, short devlogs, and stray thoughts.
+
+## Stack
+
+- [Astro](https://astro.build/) for the static site
+- [Solid](https://www.solidjs.com/) for interactive islands
+- [Tailwind CSS](https://tailwindcss.com/) for styling
+- Astro Content Collections for `devlog` and `thought` entries
+- Bun for package management and local scripts
+
+## Local setup
 
 ```sh
-bun create astro@latest -- --template basics
+bun install
+bun dev
 ```
 
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file. Have fun!
+The dev server runs on `localhost:4321` by default.
 
-## 🚀 Project Structure
-
-Inside of your Astro project, you'll see the following folders and files:
+## Content
 
 ```text
-/
-├── public/
-│   └── favicon.svg
-├── src
-│   ├── assets
-│   │   └── astro.svg
-│   ├── components
-│   │   └── Welcome.astro
-│   ├── layouts
-│   │   └── Layout.astro
-│   └── pages
-│       └── index.astro
-└── package.json
+src/content/devlog/   longer build notes and project logs
+src/content/thought/  shorter notes and thoughts
+src/lib/projects.ts   project data shown on the site
+src/lib/skills.ts     current and previous skills
 ```
 
-To learn more about the folder structure of an Astro project, refer to [our guide on project structure](https://docs.astro.build/en/basics/project-structure/).
+Each content entry uses frontmatter defined in `src/content.config.ts`.
 
-## 🧞 Commands
+## Environment
 
-All commands are run from the root of the project, from a terminal:
+Optional values used by the site config:
 
-| Command                   | Action                                           |
-| :------------------------ | :----------------------------------------------- |
-| `bun install`             | Installs dependencies                            |
-| `bun dev`             | Starts local dev server at `localhost:4321`      |
-| `bun build`           | Build your production site to `./dist/`          |
-| `bun preview`         | Preview your build locally, before deploying     |
-| `bun astro ...`       | Run CLI commands like `astro add`, `astro check` |
-| `bun astro -- --help` | Get help using the Astro CLI                     |
+```sh
+SITE_URL=
+UMAMI_ANALYTICS_HOST=
+UMAMI_WEBSITE_ID=
+```
 
-## 👀 Want to learn more?
-
-Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+If `SITE_URL` is not set, Astro falls back to `http://localhost:4321`.

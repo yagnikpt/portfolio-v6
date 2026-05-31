@@ -4,6 +4,7 @@ import { Font } from "astro:assets";
 import NavDesktop from "@/components/nav-desktop.astro";
 import NavMobile from "@/components/nav-mobile.astro";
 
+const ogImage = new URL("og-image.jpg", Astro.site);
 const pathname = Astro.url.pathname;
 ---
 
@@ -17,6 +18,35 @@ const pathname = Astro.url.pathname;
         <Font cssVariable="--font-google-sans" />
         <Font cssVariable="--font-playfair-display" />
         <title>Yagnik Patel</title>
+        <meta name="title" content={`Yagnik Patel`} />
+        <meta
+            name="description"
+            content="Yagnik Patel's portfolio site showing current work and other things about him."
+        />
+        <meta name="author" content="Yagnik Patel" />
+        <meta name="keywords" content="yagnik, yagnik patel, portfolio" />
+        <meta name="robots" content="index, follow" />
+        <meta property="og:title" content="Yagnik Patel" />
+        <meta
+            property="og:description"
+            content="Yagnik Patel's portfolio site showing current work and other things about him."
+        />
+        <meta property="og:url" content={Astro.site} />
+        <meta property="og:site_name" content="Yagnik Patel" />
+        <meta property="og:image" content={ogImage} />
+        <meta property="og:image:type" content="image/jpeg" />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta property="og:type" content="website" />
+        <meta name="twitter:card" content="summary_large_image" />
+        <meta name="twitter:site" content={Astro.site} />
+        <meta name="twitter:creator" content="@yagnik_pt" />
+        <meta name="twitter:title" content="Yagnik Patel" />
+        <meta
+            name="twitter:description"
+            content="Yagnik Patel's portfolio site showing current work and other things about him."
+        />
+        <meta name="twitter:image" content={ogImage} />
     </head>
     <body>
         <div
