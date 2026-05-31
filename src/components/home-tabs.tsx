@@ -12,17 +12,25 @@ export default function HomeTabs(props: Props) {
 	const [tab, setTab] = createSignal("info");
 
 	function setActiveTab(tab: string) {
-		if (!document.startViewTransition) {
+		const tabsTriggerElement = document.querySelector(
+			"#tabs-trigger",
+		) as HTMLElement;
+		const tabsContentElement = document.querySelector(
+			"#tabs-content",
+		) as HTMLElement;
+
+		// @ts-expect-error: types are just not there yet
+		if (!tabsTriggerElement.startViewTransition) {
 			setTab(tab);
 			return;
 		}
 
-		// @ts-expect-error: types are just not up to date
-		document.querySelector("#tabs-trigger").startViewTransition(() => {
+		// @ts-expect-error: types are just not there yet
+		tabsTriggerElement.startViewTransition(() => {
 			setTab(tab);
 		});
-		// @ts-expect-error: types are just not up to date
-		document.querySelector("#tabs-content").startViewTransition();
+		// @ts-expect-error: types are just not there yet
+		tabsContentElement.startViewTransition();
 	}
 
 	onMount(() => {
