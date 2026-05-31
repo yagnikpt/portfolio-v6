@@ -17,14 +17,15 @@ export default function HomeTabs(props: Props) {
 			return;
 		}
 
-		document.startViewTransition(() => {
+		// @ts-expect-error: types are just not up to date
+		document.querySelector("#tabs").startViewTransition(() => {
 			setTab(tab);
 		});
 	}
 
 	return (
 		<>
-			<div class="flex gap-6 items-center px-8 md:px-12">
+			<div class="flex gap-6 items-center px-8 md:px-12 top-0 sticky py-4 bg-background border-b-2 z-2">
 				<button
 					type="button"
 					class={cn(
@@ -59,7 +60,7 @@ export default function HomeTabs(props: Props) {
 					Thoughts
 				</button>
 			</div>
-			<div class="border-t-2 mt-4 py-8">
+			<div class="mt-4 py-8">
 				<Switch>
 					<Match when={tab() === "info"}>{props.info}</Match>
 					<Match when={tab() === "devlog"}>{props.devlog}</Match>

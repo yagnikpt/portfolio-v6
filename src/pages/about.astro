@@ -1,0 +1,32 @@
+---
+import { Image } from "astro:assets";
+import ComputerGif from "@/assets/about/computer.gif";
+import Layout from "@/layouts/Layout.astro";
+---
+
+<Layout>
+    <main class="pt-20 lg:pt-32 border-x-2 w-full px-8 lg:px-12">
+        <Image class="h-20 w-auto" src={ComputerGif} alt="Computer" />
+        <p class="mt-4">
+            It all started when a "build a calculator in C" video popped up in
+            my feed. I'd always liked messing around with computers, but that
+            was the moment I got hooked on building things from scratch.
+        </p>
+        <p class="mt-2">
+            After that, I was just tinkering constantly. For a long time, I
+            stayed boxed in the MERN and meta-framework bubble. It was fun, but
+            I eventually reached a point where I needed something more.
+        </p>
+        <p class="mt-2">
+            That's when I started playing with lower-level stuff and scripts. I
+            wrote custom Bash scripts to automate Linux chores (you can do
+            basically anything with Bash), wrote a reverse shell in Go to learn
+            TCP, and built CLI tools for myself. I even tried building a SaaS
+            product with a guy I met on Discord—we actually launched it, but had
+            to drop it immediately after.
+        </p>
+        <p class="mt-2">
+            The journey's still going, and there's still plenty of fuel left.
+        </p>
+    </main>
+</Layout>

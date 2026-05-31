@@ -1,6 +1,10 @@
 ---
+// import Nav from "@/components/nav";
 import "@/styles/global.css";
 import { Font } from "astro:assets";
+import Nav from "@/components/nav-desktop.astro";
+
+const pathname = Astro.url.pathname;
 ---
 
 <!doctype html>
@@ -15,6 +19,15 @@ import { Font } from "astro:assets";
         <title>Yagnik Patel</title>
     </head>
     <body>
-        <slot />
+        <div
+            class="[--content-w:42rem] 2xl:[--content-w:48rem]
+          grid lg:grid-cols-[1fr_var(--content-w)_1fr] w-full h-full"
+        >
+            <Nav pathname={pathname} />
+
+            <slot />
+
+            <div></div>
+        </div>
     </body>
 </html>

@@ -1,6 +1,11 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import GithubIcon from "@/assets/icons/social/github.svg";
+import InstagramIcon from "@/assets/icons/social/instagram.svg";
+import LinkedinIcon from "@/assets/icons/social/linkedin.svg";
+import PinterestIcon from "@/assets/icons/social/pinterest.svg";
+import XIcon from "@/assets/icons/social/x.svg";
 import ProfileImage from "@/assets/profile.webp";
 import HomeTabs from "@/components/home-tabs";
 import Layout from "@/layouts/Layout.astro";
@@ -16,9 +21,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
 ---
 
 <Layout>
-    <main
-        class="pt-20 lg:pt-32 lg:max-w-2xl 2xl:max-w-3xl mx-auto border-x-2 h-full"
-    >
+    <main class="pt-20 lg:pt-32 border-x-2 w-full">
         <header class="px-8 md:px-12">
             <Image
                 class="size-16 rounded-full"
@@ -27,20 +30,85 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                 alt="Profile"
             />
             <h1 class="text-lg mt-6">Yagnik Patel</h1>
-            <h2>Backend Engineering, DevOps & Systems</h2>
+            <h2 class="">Backend Engineering, DevOps & Systems</h2>
             <a
                 class="block w-fit underline decoration-2 underline-offset-2 decoration-muted hover:decoration-foreground transition-colors"
                 href="mailto:yagnik.pt@gmail.com">yagnik.pt@gmail.com</a
             >
-            <!-- <a
-                class="flex w-fit items-center gap-1 mt-6 text-muted hover:text-foreground transition-colors"
-                href="https://github.com/yagnikpt"
-            >
-                <GithubIcon class="size-4 inline-block" />
-                <span class="inline-block">yagnikpt</span>
-            </a> -->
+            <div class="flex gap-2 mt-4">
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://github.com/yagnikpt"
+                    class="group p-1 rounded-xl bg-linear-to-b from-neutral-100 to-neutral-300/40 shadow-[0_1px_3px_rgba(0,0,0,0.5)] active:shadow-[0_0px_1px_rgba(0,0,0,0.5)] active:scale-[0.995]"
+                >
+                    <div
+                        class="bg-linear-to-b from-neutral-300/40 to-neutral-100/80 rounded-lg px-2 py-1"
+                    >
+                        <div class="flex gap-2 items-center">
+                            <GithubIcon class="size-5" />
+                        </div>
+                    </div>
+                </a>
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://www.linkedin.com/in/yagnikpt"
+                    class="group p-1 rounded-xl bg-linear-to-b from-blue-600 to-blue-900 shadow-[0_1px_3px_rgba(0,0,0,0.5)] active:shadow-[0_0px_1px_rgba(0,0,0,0.5)] active:scale-[0.995] text-neutral-100"
+                >
+                    <div
+                        class="bg-linear-to-b from-blue-900/40 to-blue-600/80 rounded-lg px-2 py-1"
+                    >
+                        <div class="flex gap-2 items-center">
+                            <LinkedinIcon class="size-5" />
+                        </div>
+                    </div>
+                </a>
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://x.com/yagnik_pt"
+                    class="group p-1 rounded-xl bg-linear-to-b from-neutral-600 to-neutral-900 shadow-[0_1px_3px_rgba(0,0,0,0.5)] active:shadow-[0_0px_1px_rgba(0,0,0,0.5)] active:scale-[0.995] text-neutral-100"
+                >
+                    <div
+                        class="bg-linear-to-b from-neutral-900/40 to-neutral-600/80 rounded-lg px-2 py-1"
+                    >
+                        <div class="flex gap-2 items-center">
+                            <XIcon class="size-5" />
+                        </div>
+                    </div>
+                </a>
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://instagram.com/yagnik._._.patel"
+                    class="group p-1 rounded-xl bg-linear-to-b from-pink-500 to-pink-800 shadow-[0_1px_3px_rgba(0,0,0,0.5)] active:shadow-[0_0px_1px_rgba(0,0,0,0.5)] active:scale-[0.995] text-neutral-100"
+                >
+                    <div
+                        class="bg-linear-to-b from-pink-800/40 to-pink-500/80 rounded-lg px-2 py-1"
+                    >
+                        <div class="flex gap-2 items-center">
+                            <InstagramIcon class="size-5" />
+                        </div>
+                    </div>
+                </a>
+                <a
+                    target="_blank"
+                    rel="noreferrer"
+                    href="https://pinterest.com/yagnik_pt"
+                    class="group p-1 rounded-xl bg-linear-to-b from-red-500 to-red-800 shadow-[0_1px_3px_rgba(0,0,0,0.5)] active:shadow-[0_0px_1px_rgba(0,0,0,0.5)] active:scale-[0.995] text-neutral-100"
+                >
+                    <div
+                        class="bg-linear-to-b from-red-800/40 to-red-500/80 rounded-lg px-2 py-1"
+                    >
+                        <div class="flex gap-2 items-center">
+                            <PinterestIcon class="size-5" />
+                        </div>
+                    </div>
+                </a>
+            </div>
         </header>
-        <section class="mt-8">
+        <section id="tabs" class="mt-4">
             <!-- @ts-ignore: already passing childs with slots -->
             <HomeTabs client:load>
                 <div slot="info">
@@ -51,7 +119,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                         <div class="flex flex-col gap-8">
                             {
                                 featuredProjects.map((item) => (
-                                    <div>
+                                    <div class="">
                                         {item.links.site ? (
                                             <div class="flex gap-2 items-center">
                                                 <a
@@ -163,8 +231,10 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/devlog/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4 class="line-clamp-1">{p.data.title}</h4>
-                                <span class="text-muted shrink-0">
+                                <h4 class="line-clamp-1 [view-transition-name:post-title]">
+                                    {p.data.title}
+                                </h4>
+                                <span class="text-muted shrink-0 [view-transition-name:post-date]">
                                     {(() => {
                                         const date = new Date(p.data.pubDate);
                                         return date.toLocaleDateString(
@@ -188,8 +258,10 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/thought/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4 class="line-clamp-1">{p.data.title}</h4>
-                                <span class="text-muted shrink-0">
+                                <h4 class="line-clamp-1 [view-transition-name:post-title]">
+                                    {p.data.title}
+                                </h4>
+                                <span class="text-muted shrink-0 [view-transition-name:post-date]">
                                     {(() => {
                                         const date = new Date(p.data.pubDate);
                                         return date.toLocaleDateString(

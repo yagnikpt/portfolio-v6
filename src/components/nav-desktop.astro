@@ -1,0 +1,63 @@
+---
+interface Props {
+    pathname: string;
+}
+
+import ArrowRightIcon from "@/assets/icons/ui/arrow-right.svg";
+import { cn } from "@/lib/utils";
+
+const { pathname } = Astro.props;
+---
+
+<nav
+    class="max-md:hidden h-fit flex flex-col items-end pt-32 pr-20 gap-4 sticky top-0 [view-transition-group:contain] [view-transition-name:active-path-root]"
+>
+    <div>
+        <a class="flex items-center gap-1" href="/">
+            {
+                pathname === "/" ? (
+                    <ArrowRightIcon class="size-4 text-foreground/90 [view-transition-name:active-path]" />
+                ) : (
+                    <div class="size-4" />
+                )
+            }
+            <span
+                class={cn(
+                    pathname === "/" ? "text-foreground" : "text-foreground/75",
+                )}>Home</span
+            >
+        </a>
+        <a class="flex items-center gap-1" href="/about">
+            {
+                pathname.startsWith("/about") ? (
+                    <ArrowRightIcon class="size-4 text-foreground/90 [view-transition-name:active-path]" />
+                ) : (
+                    <div class="size-4" />
+                )
+            }
+            <span
+                class={cn(
+                    pathname.startsWith("/about")
+                        ? "text-foreground"
+                        : "text-foreground/75",
+                )}>About</span
+            >
+        </a>
+        <a class="flex items-center gap-1" href="/projects">
+            {
+                pathname.startsWith("/projects") ? (
+                    <ArrowRightIcon class="size-4 text-foreground/90 [view-transition-name:active-path]" />
+                ) : (
+                    <div class="size-4" />
+                )
+            }
+            <span
+                class={cn(
+                    pathname.startsWith("/projects")
+                        ? "text-foreground"
+                        : "text-foreground/75",
+                )}>Projects</span
+            >
+        </a>
+    </div>
+</nav>

@@ -35,7 +35,9 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
     </head>
 
     <body>
-        <main class="pt-20 lg:pt-32 lg:max-w-2xl 2xl:max-w-3xl mx-auto px-8">
+        <main
+            class="pt-20 lg:pt-32 max-w-2xl 2xl:max-w-3xl mx-auto max-sm:px-8"
+        >
             <a
                 class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
                 href="/"
@@ -44,12 +46,16 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
                 <span>Back to Home</span></a
             >
             <header class="my-6 py-4 border-b-2">
-                <h1 class="text-4xl font-medium font-serif">
+                <h1
+                    class="text-3xl md:text-4xl font-medium font-serif w-fit [view-transition-name:post-title]"
+                >
                     {thought.title}
                 </h1>
                 <div class="flex mt-4 gap-2 items-center text-foreground/75">
                     <CalendarDays class="size-5" />
-                    <span class="text-sm">{formattedDate}</span>
+                    <span class="text-sm [view-transition-name:post-date]"
+                        >{formattedDate}</span
+                    >
                 </div>
             </header>
             <article class="prose dark:prose-invert max-w-none">
