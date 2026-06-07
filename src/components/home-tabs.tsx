@@ -80,7 +80,7 @@ export default function HomeTabs(props: Props) {
 					Thoughts
 				</button>
 			</div>
-			<div id="tabs-content" class="mt-4 py-8">
+			<div id="tabs-content" class="mt-4 py-7">
 				<Switch>
 					<Match when={tab() === "info"}>{props.info}</Match>
 					<Match when={tab() === "devlog"}>{props.devlog}</Match>

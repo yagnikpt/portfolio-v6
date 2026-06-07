@@ -116,7 +116,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
         <section id="tabs" class="mt-4 pb-20">
             <!-- @ts-ignore: already passing childs with slots -->
             <HomeTabs client:load>
-                <div slot="info">
+                <div class="py-1" slot="info">
                     <div
                         class="grid gap-y-4 md:grid-cols-[1fr_4fr] px-8 md:px-12"
                     >

@@ -12,12 +12,12 @@
 		"astro": "astro"
 	},
 	"dependencies": {
-		"@astrojs/markdown-satteri": "^0.2.1",
+		"@astrojs/markdown-satteri": "^0.2.2",
 		"@astrojs/solid-js": "^6.0.1",
 		"@material-symbols-svg/astro": "^0.8.0",
 		"@tailwindcss/vite": "^4.3.0",
 		"@yeskunall/astro-umami": "^0.0.8",
-		"astro": "^6.4.2",
+		"astro": "^6.4.4",
 		"clsx": "^2.1.1",
 		"solid-js": "^1.9.13",
 		"tailwind-merge": "^3.6.0",
