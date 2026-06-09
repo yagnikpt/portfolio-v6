@@ -113,6 +113,14 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                 </a>
             </div>
         </header>
+        <dialog
+            popover
+            id="image_modal"
+            style={{ viewTransitionName: "image-modal" }}
+            class="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none rounded-lg overflow-hidden w-max"
+        >
+            <img class="max-w-5xl w-full" src="" alt="" />
+        </dialog>
         <section id="tabs" class="mt-4 pb-20">
             <!-- @ts-ignore: already passing childs with slots -->
             <HomeTabs client:load>
@@ -166,7 +174,9 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                         <div class="flex gap-2 mt-4">
                                             {item.image.map((i) => (
                                                 <Image
-                                                    class="h-20 w-auto rounded"
+                                                    data-img-src={i.src}
+                                                    height={80}
+                                                    class="h-20 w-auto rounded project-image"
                                                     src={i}
                                                     alt={item.name}
                                                     loading="eager"
@@ -307,3 +317,55 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
         </section>
     </main>
 </Layout>
+
+<script>
+    const projectImages = document.querySelectorAll(
+        ".project-image",
+    ) as NodeListOf<HTMLImageElement>;
+    const imageModal = document.querySelector(
+        "#image_modal",
+    ) as HTMLDialogElement;
+    if (imageModal)
+        for (const image of projectImages) {
+            image.addEventListener("click", (e) => {
+                if (e.target) {
+                    const modalImg = imageModal.querySelector(
+                        "img",
+                    ) as HTMLImageElement;
+                    if (document.startViewTransition) {
+                        document.startViewTransition(() => {
+                            modalImg.src =
+                                e.target.getAttribute("data-img-src");
+                            modalImg.alt = e.target.alt;
+                            queueMicrotask(() => {
+                                imageModal.showModal();
+                            });
+                        });
+                    } else {
+                        modalImg.src = e.target.getAttribute("data-img-src");
+                        modalImg.alt = e.target.alt;
+                        queueMicrotask(() => {
+                            imageModal.showModal();
+                        });
+                    }
+                }
+            });
+        }
+    imageModal.addEventListener("click", (e) => {
+        if (e.target === imageModal) {
+            if (document.startViewTransition) {
+                document.startViewTransition(() => {
+                    imageModal.close();
+                });
+            } else {
+                imageModal.close();
+            }
+        }
+    });
+</script>
+
+<style>
+    ::view-transition-group(image-modal) {
+        z-index: 100;
+    }
+</style>

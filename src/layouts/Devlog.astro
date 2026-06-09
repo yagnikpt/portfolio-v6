@@ -78,6 +78,9 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
                 {
                     devlog.heroImage && (
                         <Image
+                            layout="constrained"
+                            width={800}
+                            priority
                             class="w-full rounded-xl mb-8"
                             src={devlog.heroImage}
                             alt={devlog.title}
