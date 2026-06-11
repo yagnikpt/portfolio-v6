@@ -35,6 +35,7 @@ export default defineConfig({
 		umami({
 			endpointUrl: env.UMAMI_ANALYTICS_HOST,
 			id: env.UMAMI_WEBSITE_ID,
+			performance: true,
 		}),
 	],
 });
