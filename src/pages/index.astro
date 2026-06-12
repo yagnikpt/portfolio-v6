@@ -128,7 +128,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                     <div
                         class="grid gap-y-4 md:grid-cols-[1fr_4fr] px-8 md:px-12"
                     >
-                        <h4 class="text-muted">Projects</h4>
+                        <h2 class="text-muted">Projects</h2>
                         <div class="flex flex-col gap-8">
                             {
                                 featuredProjects.map((item) => (
@@ -175,7 +175,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                             {item.image.map((i) => (
                                                 <Image
                                                     data-img-src={i.src}
-                                                    height={80}
+                                                    height={120}
                                                     class="h-20 w-auto rounded project-image"
                                                     src={i}
                                                     alt={item.name}
@@ -191,7 +191,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                     <div
                         class="grid gap-y-4 md:grid-cols-[1fr_4fr] mt-8 border-t-2 px-8 md:px-12 pt-8"
                     >
-                        <h4 class="text-muted">Now</h4>
+                        <h2 class="text-muted">Now</h2>
                         <div>
                             <p class="text-pretty">
                                 These days I'm learning Go by building CLIs,
@@ -203,7 +203,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                             <div class="flex gap-2 items-center flex-wrap mt-2">
                                 {
                                     currentSkills.map((s) => (
-                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-[#dfdfdf] h-5.5 cursor-default gap-1.5 bg-[#ECECEE] px-1.5 pr-2 text-xs align-middle text-foreground">
+                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
                                             <s.icon class="size-3.5 pointer-events-none shrink-0" />
                                             <span>{s.label}</span>
                                         </div>
@@ -215,7 +215,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                     <div
                         class="grid gap-y-4 md:grid-cols-[1fr_4fr] mt-4 px-8 md:px-12 pt-4"
                     >
-                        <h4 class="text-muted">Previously</h4>
+                        <h2 class="text-muted">Previously</h2>
                         <div>
                             <p class="text-pretty">
                                 I got really into frontend part, building
@@ -228,7 +228,7 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                             <div class="flex gap-2 items-center flex-wrap mt-2">
                                 {
                                     previouslyLearnedSkills.map((s) => (
-                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-[#dfdfdf] h-5.5 cursor-default gap-1.5 bg-[#ECECEE] px-1.5 pr-2 text-xs align-middle text-foreground">
+                                        <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
                                             <s.icon class="size-3.5 pointer-events-none shrink-0" />
                                             <span>{s.label}</span>
                                         </div>
@@ -246,14 +246,14 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/devlog/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4
+                                <h2
                                     style={{
                                         viewTransitionName: `devlog-title-${p.id}`,
                                     }}
                                     class="line-clamp-1"
                                 >
                                     {p.data.title}
-                                </h4>
+                                </h2>
                                 <span
                                     style={{
                                         viewTransitionName: `devlog-date-${p.id}`,
@@ -283,14 +283,14 @@ const allThoughtsPosts = (await getCollection("thought")).sort(
                                 href={`/thought/${p.id}`}
                                 class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
                             >
-                                <h4
+                                <h2
                                     style={{
                                         viewTransitionName: `thought-title-${p.id}`,
                                     }}
                                     class="line-clamp-1"
                                 >
                                     {p.data.title}
-                                </h4>
+                                </h2>
                                 <span
                                     style={{
                                         viewTransitionName: `thought-date-${p.id}`,

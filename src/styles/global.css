@@ -15,15 +15,15 @@
 :root {
     --foreground: #1a1a1a;
     --background: #fafafa;
-    --muted: #858585;
+    --muted: #737373;
     --border: #F0F0F0;
 }
 
 .dark {
     --foreground: #fafafa;
     --background: #1a1a1a;
-    --muted: #858585;
-    --border: #333333;
+    --muted: #909092;
+    --border: #222222;
 }
 
 @layer base {
