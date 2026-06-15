@@ -1,6 +1,7 @@
 ---
 title: "Why the Fuck Am I So Hard on Myself?"
 pubDate: 2026-06-15
+tags: ["personal"]
 ---
 
 I realized something recently. When I look at people in my life (usually friends around my age) who are doing well or showing some positive trait, it’s easy to assume they’re going to be fine. By "good" I mean simple things: decent skills at work, social skills, things like that. For example, if someone is great at social interactions but lacks actual work-related skills, I instantly assume they’ll find a way to make those social skills work for them.

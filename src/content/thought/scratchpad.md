@@ -1,6 +1,7 @@
 ---
 title: "Scratchpad"
 pubDate: 2026-05-31
+tags: []
 ---
 
 This is where I dump ideas, observations, and personal notes.

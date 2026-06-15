@@ -67,13 +67,14 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
         <main
             class="pt-20 lg:pt-32 max-w-2xl 2xl:max-w-3xl mx-auto max-sm:px-8"
         >
-            <a
+            <button
                 class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
-                href="/?tab=devlog"
+                type="button"
+                onclick="window.history.back()"
             >
                 <Undo class="size-4" />
-                <span>Back to Home</span></a
-            >
+                <span>Back to Home</span>
+            </button>
             <header class="my-6 py-4 border-b-2">
                 {
                     devlog.heroImage && (
