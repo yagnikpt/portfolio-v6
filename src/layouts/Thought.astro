@@ -33,6 +33,32 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
         <title>{thought.title} - Yagnik Patel</title>
         <meta name="title" content={`${thought.title} - Yagnik Patel`} />
         <meta name="description" content="just an interesting thought ig" />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={thought.title} />
+        <meta
+            property="og:description"
+            content={"just an interesting thought ig"}
+        />
+        <meta
+            property="og:image"
+            content={new URL("/scratchpad-og.webp", Astro.url)}
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={thought.title} />
+        <meta
+            property="twitter:description"
+            content={"just an interesting thought ig"}
+        />
+        <meta
+            property="twitter:image"
+            content={new URL("/scratchpad-og.webp", Astro.url)}
+        />
     </head>
 
     <body>
@@ -65,7 +91,9 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
                     >
                 </div>
             </header>
-            <article class="prose dark:prose-invert max-w-none pb-20">
+            <article
+                class="prose dark:prose-invert max-w-none pb-20 prose-blockquote:text-inherit"
+            >
                 <slot />
             </article>
         </main>
