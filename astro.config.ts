@@ -1,4 +1,3 @@
-import { satteri } from "@astrojs/markdown-satteri";
 import solidJs from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import umami from "@yeskunall/astro-umami";
@@ -12,9 +11,6 @@ export default defineConfig({
 	trailingSlash: "never",
 	vite: {
 		plugins: [tailwindcss()],
-	},
-	markdown: {
-		processor: satteri(),
 	},
 	fonts: [
 		{
