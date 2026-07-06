@@ -38,12 +38,18 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
         <meta property="og:type" content="article" />
         <meta property="og:url" content={Astro.url} />
         <meta property="og:title" content={devlog.title} />
+        <meta property="og:site_name" content="Yagnik Patel" />
         <meta property="og:description" content={devlog.description} />
         {
-            devlog.heroImage && (
+            devlog.heroImage ? (
                 <meta
                     property="og:image"
                     content={new URL(devlog.heroImage.src, Astro.url)}
+                />
+            ) : (
+                <meta
+                    property="og:image"
+                    content={new URL("/devlog-og.webp", Astro.url)}
                 />
             )
         }
@@ -54,10 +60,15 @@ const formattedDate = new Date(devlog.pubDate).toLocaleDateString("en-US", {
         <meta property="twitter:title" content={devlog.title} />
         <meta property="twitter:description" content={devlog.description} />
         {
-            devlog.heroImage && (
+            devlog.heroImage ? (
                 <meta
                     property="twitter:image"
                     content={new URL(devlog.heroImage.src, Astro.url)}
+                />
+            ) : (
+                <meta
+                    property="twitter:image"
+                    content={new URL("/devlog-og.webp", Astro.url)}
                 />
             )
         }

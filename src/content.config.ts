@@ -11,6 +11,7 @@ const devlog = defineCollection({
 			pubDate: z.coerce.date(),
 			heroImage: image().optional(),
 			tags: z.array(z.string()).optional(),
+			draft: z.boolean().optional(),
 		}),
 });
 
@@ -20,6 +21,7 @@ const thought = defineCollection({
 		title: z.string(),
 		pubDate: z.coerce.date(),
 		tags: z.array(z.string()).optional(),
+		draft: z.boolean().optional(),
 	}),
 });
 
