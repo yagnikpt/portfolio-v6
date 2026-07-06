@@ -12,12 +12,16 @@ import Layout from "@/layouts/Layout.astro";
 import { featuredProjects } from "@/lib/projects";
 import { currentSkills, previouslyLearnedSkills } from "@/lib/skills";
 
-const allDevlogPosts = (await getCollection("devlog")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
-const allThoughtsPosts = (await getCollection("thought")).sort(
-    (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
-);
+const allDevlogPosts = (
+    await getCollection("devlog", ({ data }) => {
+        return import.meta.env.PROD ? data.draft !== true : true;
+    })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+const allThoughtsPosts = (
+    await getCollection("thought", ({ data }) => {
+        return import.meta.env.PROD ? data.draft !== true : true;
+    })
+).sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
 ---
 
 <Layout>

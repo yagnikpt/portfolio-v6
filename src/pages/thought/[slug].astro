@@ -4,7 +4,7 @@ import ThoughtLayout from "@/layouts/Thought.astro";
 
 export async function getStaticPaths() {
     const thoughts = await getCollection("thought", ({ data }) => {
-        return import.meta.env.PROD ? data?.draft !== true : true;
+        return import.meta.env.PROD ? data.draft !== true : true;
     });
     return thoughts.map((thought) => ({
         params: { slug: thought.id },

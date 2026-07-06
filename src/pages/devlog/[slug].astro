@@ -4,7 +4,7 @@ import DevlogLayout from "@/layouts/Devlog.astro";
 
 export async function getStaticPaths() {
     const devlogs = await getCollection("devlog", ({ data }) => {
-        return import.meta.env.PROD ? data?.draft !== true : true;
+        return import.meta.env.PROD ? data.draft !== true : true;
     });
     return devlogs.map((log) => ({
         params: { slug: log.id },
