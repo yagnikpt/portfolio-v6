@@ -1,3 +1,4 @@
+import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
 import umami from "@yeskunall/astro-umami";
@@ -33,5 +34,6 @@ export default defineConfig({
 			id: env.UMAMI_WEBSITE_ID,
 			performance: true,
 		}),
+		sitemap(),
 	],
 });
