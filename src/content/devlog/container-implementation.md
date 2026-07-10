@@ -1,5 +1,5 @@
 ---
-title: "Containers"
+title: "Container Implementation"
 description: "Process of learning more about containers."
 pubDate: 2026-06-29
 tags: ["linux", "container"]
