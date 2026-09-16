@@ -27,8 +27,8 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
         <link rel="canonical" href={canonicalURL} />
         <meta name="generator" content={Astro.generator} />
         <link rel="sitemap" href="/sitemap-index.xml" />
-        <Font cssVariable="--font-google-sans" />
-        <Font cssVariable="--font-playfair-display" />
+        <Font cssVariable="--font-google-sans-flex" />
+        <Font cssVariable="--font-instrument-serif" />
 
         <!-- Primary Meta Tags -->
         <title>{thought.title} - Yagnik Patel</title>
@@ -64,9 +64,7 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
     </head>
 
     <body>
-        <main
-            class="pt-20 lg:pt-32 max-w-2xl 2xl:max-w-3xl mx-auto max-sm:px-8"
-        >
+        <main class="pt-20 lg:pt-32 max-w-2xl 2xl:max-w-3xl mx-auto max-sm:px-8">
             <button
                 class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
                 type="button"
@@ -80,23 +78,16 @@ const formattedDate = new Date(thought.pubDate).toLocaleDateString("en-US", {
                     style={{
                         viewTransitionName: `thought-title-${id}`,
                     }}
-                    class="text-3xl md:text-4xl font-medium font-serif w-fit"
+                    class="text-4xl md:text-5xl font-semibold font-serif w-fit"
                 >
                     {thought.title}
                 </h1>
                 <div class="flex mt-4 gap-2 items-center text-foreground/75">
                     <CalendarMonth class="size-5" />
-                    <span
-                        style={{
-                            viewTransitionName: `thought-date-${id}`,
-                        }}
-                        class="text-sm">{formattedDate}</span
-                    >
+                    <span class="text-sm">{formattedDate}</span>
                 </div>
             </header>
-            <article
-                class="prose dark:prose-invert max-w-none pb-20 prose-blockquote:text-inherit"
-            >
+            <article class="prose dark:prose-invert max-w-none pb-20 prose-blockquote:text-inherit">
                 <slot />
             </article>
         </main>

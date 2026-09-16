@@ -16,15 +16,15 @@ export default defineConfig({
 	fonts: [
 		{
 			provider: fontProviders.google(),
-			name: "Google Sans",
-			cssVariable: "--font-google-sans",
+			name: "Google Sans Flex",
+			cssVariable: "--font-google-sans-flex",
 			weights: [400, 500, 600, 800],
 		},
 		{
 			provider: fontProviders.google(),
-			name: "Playfair Display",
-			cssVariable: "--font-playfair-display",
-			weights: [400, 500, 600, 800],
+			name: "Instrument Serif",
+			cssVariable: "--font-instrument-serif",
+			weights: [400],
 		},
 	],
 	integrations: [
@@ -36,4 +36,5 @@ export default defineConfig({
 		}),
 		sitemap(),
 	],
+	session: false,
 });
