@@ -8,29 +8,75 @@ interface Props {
 	thoughts: JSX.Element;
 }
 
+const TAB_ORDER = ["info", "devlog", "thought"] as const;
+type TabKey = (typeof TAB_ORDER)[number];
+
 export default function HomeTabs(props: Props) {
-	const [tab, setTab] = createSignal("info");
+	const [tab, setTab] = createSignal<string>("info");
+	let currentTransitionId = 0;
 
-	function setActiveTab(tab: string) {
-		const tabsTriggerElement = document.querySelector(
-			"#tabs-trigger",
-		) as HTMLElement;
-		const tabsContentElement = document.querySelector(
-			"#tabs-content",
-		) as HTMLElement;
+	function setActiveTab(nextTab: string) {
+		const currentTab = tab();
+		if (currentTab === nextTab) return;
 
-		// @ts-expect-error: types are just not there yet
-		if (!tabsTriggerElement.startViewTransition) {
-			setTab(tab);
+		if (!document.startViewTransition) {
+			setTab(nextTab);
 			return;
 		}
 
-		// @ts-expect-error: types are just not there yet
-		tabsTriggerElement.startViewTransition(() => {
-			setTab(tab);
-		});
-		// @ts-expect-error: types are just not there yet
-		tabsContentElement.startViewTransition();
+		const currentIndex = TAB_ORDER.indexOf(currentTab as TabKey);
+		const nextIndex = TAB_ORDER.indexOf(nextTab as TabKey);
+		const direction = nextIndex > currentIndex ? "forward" : "backward";
+
+		document.documentElement.dataset.tabDirection = direction;
+		document.documentElement.classList.remove(
+			direction === "forward" ? "tab-slide-backward" : "tab-slide-forward",
+		);
+		document.documentElement.classList.add(
+			"tab-transition",
+			`tab-slide-${direction}`,
+		);
+
+		const transitionId = ++currentTransitionId;
+		let transition: ViewTransition;
+
+		// If scrolled past the tabs section, scroll back to the top of tabs
+		// so the sticky tab bar never overlaps the new tab content.
+		const tabsSection = document.getElementById("tabs");
+		const restingTop = tabsSection
+			? tabsSection.getBoundingClientRect().top + window.scrollY
+			: 0;
+		const shouldScrollToTabs = window.scrollY > restingTop;
+
+		const updateDOM = () => {
+			setTab(nextTab);
+			if (shouldScrollToTabs) {
+				window.scrollTo({ top: restingTop, behavior: "instant" as ScrollBehavior });
+			}
+		};
+
+		try {
+			transition = (document as any).startViewTransition({
+				update: updateDOM,
+				types: [direction, `slide-${direction}`],
+			});
+		} catch {
+			transition = document.startViewTransition(updateDOM);
+		}
+
+		transition.ready.catch(() => {});
+		transition.finished
+			.catch(() => {})
+			.finally(() => {
+				if (currentTransitionId === transitionId) {
+					document.documentElement.classList.remove(
+						"tab-transition",
+						"tab-slide-forward",
+						"tab-slide-backward",
+					);
+					delete document.documentElement.dataset.tabDirection;
+				}
+			});
 	}
 
 	onMount(() => {
@@ -50,37 +96,55 @@ export default function HomeTabs(props: Props) {
 					type="button"
 					class={cn(
 						"text-muted relative",
-						tab() === "info" &&
-							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+						tab() === "info" && "text-foreground",
 					)}
 					onClick={() => setActiveTab("info")}
 				>
 					Information
+					{tab() === "info" && (
+						<span
+							data-tab-indicator
+							class="absolute bottom-0 inset-x-0 h-0.5 bg-muted"
+						/>
+					)}
 				</button>
 				<button
 					type="button"
 					class={cn(
 						"text-muted relative",
-						tab() === "devlog" &&
-							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+						tab() === "devlog" && "text-foreground",
 					)}
 					onClick={() => setActiveTab("devlog")}
 				>
 					DevLog
+					{tab() === "devlog" && (
+						<span
+							data-tab-indicator
+							class="absolute bottom-0 inset-x-0 h-0.5 bg-muted"
+						/>
+					)}
 				</button>
 				<button
 					type="button"
 					class={cn(
 						"text-muted relative",
-						tab() === "thought" &&
-							"text-foreground after:absolute after:bottom-0 after:inset-x-0 after:h-0.5 after:bg-muted after:[view-transition-name:tab-underline]",
+						tab() === "thought" && "text-foreground",
 					)}
 					onClick={() => setActiveTab("thought")}
 				>
 					Thoughts
+					{tab() === "thought" && (
+						<span
+							data-tab-indicator
+							class="absolute bottom-0 inset-x-0 h-0.5 bg-muted"
+						/>
+					)}
 				</button>
 			</div>
-			<div id="tabs-content" class="mt-4 py-7">
+			<div
+				id="tabs-content"
+				class="mt-4 py-7 min-h-[calc(100svh-4rem)]"
+			>
 				<Switch>
 					<Match when={tab() === "info"}>{props.info}</Match>
 					<Match when={tab() === "devlog"}>{props.devlog}</Match>

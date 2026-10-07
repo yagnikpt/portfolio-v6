@@ -33,6 +33,9 @@
     html, body {
         @apply h-full;
     }
+    html {
+        scrollbar-gutter: stable;
+    }
     body {
         @apply bg-background text-foreground;
     }
@@ -41,3 +44,219 @@
 @view-transition {
   navigation: auto;
 }
+
+html.tab-transition::view-transition-old(root),
+html.tab-transition::view-transition-new(root) {
+    animation: none;
+}
+
+html.tab-transition #tabs-trigger {
+    view-transition-name: tabs-trigger;
+}
+
+html.tab-transition #tabs-content {
+    view-transition-name: tab-content;
+}
+
+html.tab-transition [data-tab-indicator] {
+    view-transition-name: tab-underline;
+}
+
+html.tab-transition #tabs-content * {
+    view-transition-name: none !important;
+}
+
+html.tab-transition::view-transition-group(tab-content) {
+    z-index: 1;
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: clip;
+}
+
+html.tab-transition::view-transition-group(tabs-trigger) {
+    z-index: 10;
+    animation: none;
+}
+
+html.tab-transition::view-transition-old(tabs-trigger),
+html.tab-transition::view-transition-new(tabs-trigger) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+html.tab-transition::view-transition-group(tab-underline) {
+    z-index: 11;
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.tab-transition::view-transition-old(tab-underline),
+html.tab-transition::view-transition-new(tab-underline) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-group(active-path-root) {
+    z-index: 30;
+}
+
+::view-transition-group(active-path) {
+    z-index: 31;
+}
+
+::view-transition-group(mobile-nav) {
+    z-index: 50;
+}
+
+::view-transition-old(mobile-nav),
+::view-transition-new(mobile-nav) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-group(pill-bg) {
+    z-index: 51;
+}
+
+::view-transition-old(pill-bg),
+::view-transition-new(pill-bg) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-group(nav-content-home),
+::view-transition-group(nav-content-about) {
+    z-index: 52;
+}
+
+::view-transition-group(image-modal) {
+    z-index: 100;
+}
+
+html.tab-transition::view-transition-old(tab-content),
+html.tab-transition::view-transition-new(tab-content) {
+    animation-duration: 0.25s;
+    animation-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    animation-fill-mode: both;
+    mix-blend-mode: normal;
+    height: 100%;
+    width: 100%;
+    object-fit: none;
+    object-position: top left;
+}
+
+/* Forward: moving to a tab to the right (e.g. Information -> DevLog -> Thoughts) */
+html[data-tab-direction="forward"]::view-transition-old(tab-content),
+html.tab-slide-forward::view-transition-old(tab-content),
+:root:active-view-transition-type(forward)::view-transition-old(tab-content),
+:root:active-view-transition-type(slide-forward)::view-transition-old(tab-content) {
+    animation-name: tab-slide-out-left;
+}
+
+html[data-tab-direction="forward"]::view-transition-new(tab-content),
+html.tab-slide-forward::view-transition-new(tab-content),
+:root:active-view-transition-type(forward)::view-transition-new(tab-content),
+:root:active-view-transition-type(slide-forward)::view-transition-new(tab-content) {
+    animation-name: tab-slide-in-right;
+}
+
+/* Backward: moving to a tab to the left (e.g. Thoughts -> DevLog -> Information) */
+html[data-tab-direction="backward"]::view-transition-old(tab-content),
+html.tab-slide-backward::view-transition-old(tab-content),
+:root:active-view-transition-type(backward)::view-transition-old(tab-content),
+:root:active-view-transition-type(slide-backward)::view-transition-old(tab-content) {
+    animation-name: tab-slide-out-right;
+}
+
+html[data-tab-direction="backward"]::view-transition-new(tab-content),
+html.tab-slide-backward::view-transition-new(tab-content),
+:root:active-view-transition-type(backward)::view-transition-new(tab-content),
+:root:active-view-transition-type(slide-backward)::view-transition-new(tab-content) {
+    animation-name: tab-slide-in-left;
+}
+
+@keyframes tab-slide-out-left {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+}
+
+@keyframes tab-slide-in-right {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tab-slide-out-right {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+}
+
+@keyframes tab-slide-in-left {
+    from {
+        opacity: 0;
+        transform: translateX(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes tab-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes tab-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    ::view-transition-group(tab-underline),
+    ::view-transition-group(tab-content) {
+        animation-duration: 0.15s;
+    }
+
+    html[data-tab-direction]::view-transition-old(tab-content),
+    html.tab-slide-forward::view-transition-old(tab-content),
+    html.tab-slide-backward::view-transition-old(tab-content),
+    :root:active-view-transition-type(forward)::view-transition-old(tab-content),
+    :root:active-view-transition-type(backward)::view-transition-old(tab-content) {
+        animation-name: tab-fade-out;
+    }
+
+    html[data-tab-direction]::view-transition-new(tab-content),
+    html.tab-slide-forward::view-transition-new(tab-content),
+    html.tab-slide-backward::view-transition-new(tab-content),
+    :root:active-view-transition-type(forward)::view-transition-new(tab-content),
+    :root:active-view-transition-type(backward)::view-transition-new(tab-content) {
+        animation-name: tab-fade-in;
+    }
+}
+
