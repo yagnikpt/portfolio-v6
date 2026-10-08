@@ -48,6 +48,95 @@ const pathname = Astro.url.pathname;
             content="Yagnik Patel's portfolio site showing current work and other things about him."
         />
         <meta name="twitter:image" content={ogImage} />
+        <script is:inline>
+            (() => {
+                const normalize = (p) => p.replace(/\/$/, "") || "/";
+                const getNavDirection = (from, to) => {
+                    if (!from || !to) return null;
+                    const f = normalize(from);
+                    const t = normalize(to);
+                    if (f === "/" && t === "/about") return "forward";
+                    if (f === "/about" && t === "/") return "backward";
+                    return null;
+                };
+
+                window.addEventListener("pageswap", (e) => {
+                    if (!e.viewTransition) return;
+                    let dir = null;
+                    if (e.activation?.from && e.activation?.entry) {
+                        try {
+                            dir = getNavDirection(
+                                new URL(e.activation.from.url).pathname,
+                                new URL(e.activation.entry.url).pathname,
+                            );
+                        } catch {}
+                    }
+                    if (!dir) {
+                        try {
+                            dir = sessionStorage.getItem("nav-direction");
+                        } catch {}
+                    }
+                    if (dir) {
+                        try {
+                            e.viewTransition.types.add(dir);
+                        } catch {}
+                        document.documentElement.dataset.navDirection = dir;
+                    }
+                });
+
+                window.addEventListener("pagereveal", (e) => {
+                    if (!e.viewTransition) return;
+                    let dir = null;
+                    if (window.navigation?.activation?.from && window.navigation?.activation?.entry) {
+                        try {
+                            dir = getNavDirection(
+                                new URL(navigation.activation.from.url).pathname,
+                                new URL(navigation.activation.entry.url).pathname,
+                            );
+                        } catch {}
+                    }
+                    if (!dir) {
+                        try {
+                            dir = sessionStorage.getItem("nav-direction");
+                        } catch {}
+                    }
+                    if (dir) {
+                        try {
+                            e.viewTransition.types.add(dir);
+                        } catch {}
+                        document.documentElement.dataset.navDirection = dir;
+                    }
+                    e.viewTransition.finished.finally(() => {
+                        try {
+                            sessionStorage.removeItem("nav-direction");
+                        } catch {}
+                        delete document.documentElement.dataset.navDirection;
+                    });
+                });
+
+                document.addEventListener(
+                    "click",
+                    (e) => {
+                        const link = e.target?.closest?.("a[href]");
+                        if (!link?.href) return;
+                        try {
+                            const url = new URL(link.href, window.location.href);
+                            if (url.origin === window.location.origin) {
+                                const dir = getNavDirection(window.location.pathname, url.pathname);
+                                if (dir) {
+                                    sessionStorage.setItem("nav-direction", dir);
+                                    document.documentElement.dataset.navDirection = dir;
+                                } else {
+                                    sessionStorage.removeItem("nav-direction");
+                                    delete document.documentElement.dataset.navDirection;
+                                }
+                            }
+                        } catch {}
+                    },
+                    { capture: true },
+                );
+            })();
+        </script>
     </head>
     <body>
         <div

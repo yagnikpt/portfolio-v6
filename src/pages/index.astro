@@ -111,10 +111,9 @@ const allThoughtsPosts = (
             </div>
         </header>
         <dialog
-            popover
             id="image_modal"
             style={{ viewTransitionName: "image-modal" }}
-            class="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none rounded-lg overflow-hidden w-max"
+            class="left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 outline-none rounded-lg overflow-hidden w-max backdrop:bg-black/50"
         >
             <img class="max-w-5xl w-full" src="" alt="" />
         </dialog>
@@ -234,7 +233,7 @@ const allThoughtsPosts = (
                                 style={{
                                     viewTransitionName: `devlog-title-${p.id}`,
                                 }}
-                                class="line-clamp-1"
+                                class="line-clamp-1 [view-transition-class:post-title]"
                             >
                                 {p.data.title}
                             </h2>
@@ -245,7 +244,7 @@ const allThoughtsPosts = (
                                         year: "numeric",
                                         month: "long",
                                         day: "numeric",
-                                    });
+                                     });
                                 })()}
                             </span>
                         </a>
@@ -261,7 +260,7 @@ const allThoughtsPosts = (
                                 style={{
                                     viewTransitionName: `thought-title-${p.id}`,
                                 }}
-                                class="line-clamp-1"
+                                class="line-clamp-1 [view-transition-class:post-title]"
                             >
                                 {p.data.title}
                             </h2>
@@ -290,34 +289,32 @@ const allThoughtsPosts = (
     const imageModal = document.querySelector(
         "#image_modal",
     ) as HTMLDialogElement;
-    if (imageModal)
+
+    if (imageModal) {
         for (const image of projectImages) {
             image.addEventListener("click", (e) => {
-                if (e.target) {
-                    const modalImg = imageModal.querySelector(
-                        "img",
-                    ) as HTMLImageElement;
-                    if (document.startViewTransition) {
-                        document.startViewTransition(() => {
-                            modalImg.src =
-                                e.target.getAttribute("data-img-src");
-                            modalImg.alt = e.target.alt;
-                            queueMicrotask(() => {
-                                imageModal.showModal();
-                            });
-                        });
-                    } else {
-                        modalImg.src = e.target.getAttribute("data-img-src");
-                        modalImg.alt = e.target.alt;
-                        queueMicrotask(() => {
-                            imageModal.showModal();
-                        });
-                    }
+                const target = e.target as HTMLImageElement | null;
+                if (!target) return;
+                const modalImg = imageModal.querySelector(
+                    "img",
+                ) as HTMLImageElement;
+                const openModal = () => {
+                    modalImg.src =
+                        target.getAttribute("data-img-src") || target.src;
+                    modalImg.alt = target.alt || "";
+                    imageModal.showModal();
+                };
+
+                if (document.startViewTransition) {
+                    document.startViewTransition(openModal);
+                } else {
+                    openModal();
                 }
             });
         }
-    imageModal.addEventListener("click", (e) => {
-        if (e.target === imageModal) {
+
+        const closeModal = () => {
+            if (!imageModal.open) return;
             if (document.startViewTransition) {
                 document.startViewTransition(() => {
                     imageModal.close();
@@ -325,12 +322,17 @@ const allThoughtsPosts = (
             } else {
                 imageModal.close();
             }
-        }
-    });
-</script>
+        };
 
-<style>
-    ::view-transition-group(image-modal) {
-        z-index: 100;
+        imageModal.addEventListener("click", (e) => {
+            if (e.target === imageModal) {
+                closeModal();
+            }
+        });
+
+        imageModal.addEventListener("cancel", (e) => {
+            e.preventDefault();
+            closeModal();
+        });
     }
-</style>
+</script>

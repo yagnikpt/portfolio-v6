@@ -29,13 +29,7 @@ export default function HomeTabs(props: Props) {
 		const direction = nextIndex > currentIndex ? "forward" : "backward";
 
 		document.documentElement.dataset.tabDirection = direction;
-		document.documentElement.classList.remove(
-			direction === "forward" ? "tab-slide-backward" : "tab-slide-forward",
-		);
-		document.documentElement.classList.add(
-			"tab-transition",
-			`tab-slide-${direction}`,
-		);
+		document.documentElement.classList.add("tab-transition");
 
 		const transitionId = ++currentTransitionId;
 		let transition: ViewTransition;
@@ -58,7 +52,7 @@ export default function HomeTabs(props: Props) {
 		try {
 			transition = (document as any).startViewTransition({
 				update: updateDOM,
-				types: [direction, `slide-${direction}`],
+				types: [direction],
 			});
 		} catch {
 			transition = document.startViewTransition(updateDOM);
@@ -69,11 +63,7 @@ export default function HomeTabs(props: Props) {
 			.catch(() => {})
 			.finally(() => {
 				if (currentTransitionId === transitionId) {
-					document.documentElement.classList.remove(
-						"tab-transition",
-						"tab-slide-forward",
-						"tab-slide-backward",
-					);
+					document.documentElement.classList.remove("tab-transition");
 					delete document.documentElement.dataset.tabDirection;
 				}
 			});

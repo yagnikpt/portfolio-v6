@@ -68,29 +68,3 @@ const { pathname } = Astro.props;
     </div>
 </nav>
 
-<style>
-    ::view-transition-group(mobile-nav) {
-        z-index: 50;
-    }
-
-    ::view-transition-old(mobile-nav),
-    ::view-transition-new(mobile-nav) {
-        animation: none;
-        mix-blend-mode: normal;
-    }
-
-    ::view-transition-group(pill-bg) {
-        z-index: 51;
-    }
-
-    ::view-transition-old(pill-bg),
-    ::view-transition-new(pill-bg) {
-        animation: none;
-        mix-blend-mode: normal;
-    }
-
-    ::view-transition-group(nav-content-home),
-    ::view-transition-group(nav-content-about) {
-        z-index: 52;
-    }
-</style>

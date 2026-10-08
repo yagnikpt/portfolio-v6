@@ -46,8 +46,158 @@
 }
 
 html.tab-transition::view-transition-old(root),
-html.tab-transition::view-transition-new(root) {
-    animation: none;
+html.tab-transition::view-transition-new(root),
+html.tab-transition::view-transition-group(root) {
+    animation: none !important;
+}
+
+/* ==========================================================================
+   Multipage View Transitions
+   - Default (all pages & desktop): Vertical drift
+   - Mobile Nav items (/ <-> /about): Lateral motion matching bottom tabs
+   ========================================================================== */
+
+html:not(.tab-transition)::view-transition-old(root) {
+    animation: 200ms cubic-bezier(0.4, 0, 1, 1) both page-exit-vertical;
+    mix-blend-mode: normal;
+    z-index: 1;
+}
+
+html:not(.tab-transition)::view-transition-new(root) {
+    animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-enter-vertical;
+    mix-blend-mode: normal;
+    z-index: 2;
+}
+
+@keyframes page-exit-vertical {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(-8px);
+    }
+}
+
+@keyframes page-enter-vertical {
+    from {
+        opacity: 0;
+        transform: translateY(12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Lateral motion strictly for mobile bottom nav tabs (/ <-> /about) */
+@media (max-width: 1023px) {
+    html:not(.tab-transition)[data-nav-direction="forward"]::view-transition-old(root),
+    :root:active-view-transition-type(forward)::view-transition-old(root) {
+        animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-exit-mobile-forward;
+        mix-blend-mode: normal;
+        z-index: 1;
+    }
+
+    html:not(.tab-transition)[data-nav-direction="forward"]::view-transition-new(root),
+    :root:active-view-transition-type(forward)::view-transition-new(root) {
+        animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-enter-mobile-forward;
+        mix-blend-mode: normal;
+        z-index: 2;
+    }
+
+    html:not(.tab-transition)[data-nav-direction="backward"]::view-transition-old(root),
+    :root:active-view-transition-type(backward)::view-transition-old(root) {
+        animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-exit-mobile-backward;
+        mix-blend-mode: normal;
+        z-index: 1;
+    }
+
+    html:not(.tab-transition)[data-nav-direction="backward"]::view-transition-new(root),
+    :root:active-view-transition-type(backward)::view-transition-new(root) {
+        animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-enter-mobile-backward;
+        mix-blend-mode: normal;
+        z-index: 2;
+    }
+}
+
+@keyframes page-exit-mobile-forward {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(-24px);
+    }
+}
+
+@keyframes page-enter-mobile-forward {
+    from {
+        opacity: 0;
+        transform: translateX(28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes page-exit-mobile-backward {
+    from {
+        opacity: 1;
+        transform: translateX(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateX(24px);
+    }
+}
+
+@keyframes page-enter-mobile-backward {
+    from {
+        opacity: 0;
+        transform: translateX(-28px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Shared Element / Title Morph (Natural Fluid Deceleration) */
+::view-transition-group(.post-title) {
+    animation-duration: 380ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(.post-title) {
+    animation: 140ms cubic-bezier(0.4, 0, 1, 1) both title-fade-out;
+    mix-blend-mode: normal;
+}
+
+::view-transition-new(.post-title) {
+    animation: 300ms cubic-bezier(0.16, 1, 0.3, 1) 40ms both title-fade-in;
+    mix-blend-mode: normal;
+}
+
+@keyframes title-fade-out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+    }
+}
+
+@keyframes title-fade-in {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
 
 html.tab-transition #tabs-trigger {
@@ -100,14 +250,39 @@ html.tab-transition::view-transition-new(tab-underline) {
     z-index: 30;
 }
 
+::view-transition-old(active-path-root),
+::view-transition-new(active-path-root) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
 ::view-transition-group(active-path) {
     z-index: 31;
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+::view-transition-old(active-path),
+::view-transition-new(active-path) {
+    animation: none;
+    mix-blend-mode: normal;
+}
+
+::view-transition-old(active-path-root):only-child,
+::view-transition-old(active-path):only-child {
+    animation: 200ms cubic-bezier(0.4, 0, 1, 1) both page-exit-vertical;
+}
+
+::view-transition-new(active-path-root):only-child,
+::view-transition-new(active-path):only-child {
+    animation: 360ms cubic-bezier(0.16, 1, 0.3, 1) both page-enter-vertical;
 }
 
 ::view-transition-group(mobile-nav) {
     z-index: 50;
 }
 
+/* When navigating between pages that both have mobile-nav (/ <-> /about), keep container still */
 ::view-transition-old(mobile-nav),
 ::view-transition-new(mobile-nav) {
     animation: none;
@@ -116,6 +291,8 @@ html.tab-transition::view-transition-new(tab-underline) {
 
 ::view-transition-group(pill-bg) {
     z-index: 51;
+    animation-duration: 320ms;
+    animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 ::view-transition-old(pill-bg),
@@ -127,6 +304,43 @@ html.tab-transition::view-transition-new(tab-underline) {
 ::view-transition-group(nav-content-home),
 ::view-transition-group(nav-content-about) {
     z-index: 52;
+}
+
+/* When navigating to/from a page without mobile-nav (e.g. devlog or thought articles) */
+::view-transition-old(mobile-nav):only-child,
+::view-transition-old(pill-bg):only-child,
+::view-transition-old(nav-content-home):only-child,
+::view-transition-old(nav-content-about):only-child {
+    animation: 200ms cubic-bezier(0.4, 0, 1, 1) both mobile-nav-exit;
+}
+
+::view-transition-new(mobile-nav):only-child,
+::view-transition-new(pill-bg):only-child,
+::view-transition-new(nav-content-home):only-child,
+::view-transition-new(nav-content-about):only-child {
+    animation: 320ms cubic-bezier(0.16, 1, 0.3, 1) both mobile-nav-enter;
+}
+
+@keyframes mobile-nav-exit {
+    from {
+        opacity: 1;
+        transform: translateY(0);
+    }
+    to {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+}
+
+@keyframes mobile-nav-enter {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
 }
 
 ::view-transition-group(image-modal) {
@@ -147,31 +361,23 @@ html.tab-transition::view-transition-new(tab-content) {
 
 /* Forward: moving to a tab to the right (e.g. Information -> DevLog -> Thoughts) */
 html[data-tab-direction="forward"]::view-transition-old(tab-content),
-html.tab-slide-forward::view-transition-old(tab-content),
-:root:active-view-transition-type(forward)::view-transition-old(tab-content),
-:root:active-view-transition-type(slide-forward)::view-transition-old(tab-content) {
+:root:active-view-transition-type(forward)::view-transition-old(tab-content) {
     animation-name: tab-slide-out-left;
 }
 
 html[data-tab-direction="forward"]::view-transition-new(tab-content),
-html.tab-slide-forward::view-transition-new(tab-content),
-:root:active-view-transition-type(forward)::view-transition-new(tab-content),
-:root:active-view-transition-type(slide-forward)::view-transition-new(tab-content) {
+:root:active-view-transition-type(forward)::view-transition-new(tab-content) {
     animation-name: tab-slide-in-right;
 }
 
 /* Backward: moving to a tab to the left (e.g. Thoughts -> DevLog -> Information) */
 html[data-tab-direction="backward"]::view-transition-old(tab-content),
-html.tab-slide-backward::view-transition-old(tab-content),
-:root:active-view-transition-type(backward)::view-transition-old(tab-content),
-:root:active-view-transition-type(slide-backward)::view-transition-old(tab-content) {
+:root:active-view-transition-type(backward)::view-transition-old(tab-content) {
     animation-name: tab-slide-out-right;
 }
 
 html[data-tab-direction="backward"]::view-transition-new(tab-content),
-html.tab-slide-backward::view-transition-new(tab-content),
-:root:active-view-transition-type(backward)::view-transition-new(tab-content),
-:root:active-view-transition-type(slide-backward)::view-transition-new(tab-content) {
+:root:active-view-transition-type(backward)::view-transition-new(tab-content) {
     animation-name: tab-slide-in-left;
 }
 
@@ -243,17 +449,29 @@ html.tab-slide-backward::view-transition-new(tab-content),
         animation-duration: 0.15s;
     }
 
+    html:not(.tab-transition)::view-transition-old(root),
+    html:not(.tab-transition)::view-transition-new(root),
+    ::view-transition-old(mobile-nav):only-child,
+    ::view-transition-new(mobile-nav):only-child,
+    ::view-transition-old(pill-bg):only-child,
+    ::view-transition-new(pill-bg):only-child,
+    ::view-transition-old(active-path-root):only-child,
+    ::view-transition-new(active-path-root):only-child,
+    ::view-transition-old(active-path):only-child,
+    ::view-transition-new(active-path):only-child,
+    ::view-transition-group(.post-title),
+    ::view-transition-old(.post-title),
+    ::view-transition-new(.post-title) {
+        animation: none;
+    }
+
     html[data-tab-direction]::view-transition-old(tab-content),
-    html.tab-slide-forward::view-transition-old(tab-content),
-    html.tab-slide-backward::view-transition-old(tab-content),
     :root:active-view-transition-type(forward)::view-transition-old(tab-content),
     :root:active-view-transition-type(backward)::view-transition-old(tab-content) {
         animation-name: tab-fade-out;
     }
 
     html[data-tab-direction]::view-transition-new(tab-content),
-    html.tab-slide-forward::view-transition-new(tab-content),
-    html.tab-slide-backward::view-transition-new(tab-content),
     :root:active-view-transition-type(forward)::view-transition-new(tab-content),
     :root:active-view-transition-type(backward)::view-transition-new(tab-content) {
         animation-name: tab-fade-in;
