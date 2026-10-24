@@ -1,3 +1,4 @@
+import partytown from "@astrojs/partytown";
 import sitemap from "@astrojs/sitemap";
 import solidJs from "@astrojs/solid-js";
 import tailwindcss from "@tailwindcss/vite";
@@ -33,8 +34,10 @@ export default defineConfig({
 			endpointUrl: env.UMAMI_ANALYTICS_HOST,
 			id: env.UMAMI_WEBSITE_ID,
 			performance: true,
+            withPartytown: true
 		}),
 		sitemap(),
+		partytown(),
 	],
 	session: false,
 });
