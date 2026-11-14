@@ -192,7 +192,7 @@ const allThoughtsPosts = (
                             </p>
                             <div class="flex gap-2 items-center flex-wrap mt-2">
                                 {currentSkills.map((s) => (
-                                    <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
+                                    <div class="inline-flex items-center justify-center whitespace-nowrap rounded font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
                                         <s.icon class="size-3.5 pointer-events-none shrink-0" />
                                         <span>{s.label}</span>
                                     </div>
@@ -213,7 +213,7 @@ const allThoughtsPosts = (
                             </p>
                             <div class="flex gap-2 items-center flex-wrap mt-2">
                                 {previouslyLearnedSkills.map((s) => (
-                                    <div class="inline-flex items-center justify-center whitespace-nowrap rounded-md font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
+                                    <div class="inline-flex items-center justify-center whitespace-nowrap rounded font-medium transition-colors disabled:pointer-events-none hover:bg-muted/30 py-2 border border-muted/8 h-5.5 cursor-default gap-1.5 bg-foreground/8 px-1.5 pr-2 text-xs align-middle text-foreground">
                                         <s.icon class="size-3.5 pointer-events-none shrink-0" />
                                         <span>{s.label}</span>
                                     </div>
@@ -256,7 +256,7 @@ const allThoughtsPosts = (
                                         style={{
                                             viewTransitionName: `devlog-title-${p.id}`,
                                         }}
-                                        class="text-lg md:text-xl font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
+                                        class="text-base sm:text-lg font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
                                     >
                                         {p.data.title}
                                     </h2>
@@ -304,7 +304,7 @@ const allThoughtsPosts = (
                                         style={{
                                             viewTransitionName: `thought-title-${p.id}`,
                                         }}
-                                        class="text-lg md:text-xl font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
+                                        class="text-base sm:text-lg font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
                                     >
                                         {p.data.title}
                                     </h2>
