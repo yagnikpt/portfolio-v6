@@ -2,14 +2,14 @@
 title: "Building focusman"
 description: "A personal background daemon that closes off-task browser tabs and windows based on intent."
 pubDate: 2026-11-14
-tags: ["linux", "tool"]
+tags: ["personal", "tool"]
 ---
 
-Every time I sit down to work, my desktop prompts me with a question: *"What is your intent?"*
+Every time I sit down to work, my desktop prompts me with a question: _"What is your intent?"_
 
 Whatever I type becomes the rule for that session. From that moment on, a background daemon I wrote called [focusman](https://github.com/yagnikpt/sys_tools) monitors my active windows and browser tabs against that declaration, closing anything that pulls me off track.
 
-Most site blockers rely on hardcoded domain blacklists, but that never worked for me. YouTube might be a conference talk on distributed systems or a gaming rabbit hole; Reddit could have an obscure compiler fix or a 30-minute doomscroll. Static URL blockers lack the context to tell the difference. I needed something that understands *why* I opened a page or an app, evaluates it against what I said I was doing, and kills the distraction before my impulses win.
+Most site blockers rely on hardcoded domain blacklists, but that never worked for me. YouTube might be a conference talk on distributed systems or a gaming rabbit hole; Reddit could have an obscure compiler fix or a 30-minute doomscroll. Static URL blockers lack the context to tell the difference. I needed something that understands _why_ I opened a page or an app, evaluates it against what I said I was doing, and kills the distraction before my impulses win.
 
 ## The Observation Layer: No Extensions, No Screen Scraping
 
@@ -23,17 +23,22 @@ To catch distractions in real time, `focusman` needs visibility into what is on 
 Sending every tab switch and window transition to an LLM would be slow and expensive. To keep enforcement feeling instant, `focusman` runs events through three stages:
 
 ### Tier 0: Static Fast Paths & Homepage Allowlisting
+
 The fastest check is the one that avoids the network entirely:
+
 - **Instant allow:** Tools I always need (`Zed`, `ghostty`, `kitty`, work email) pass immediately.
 - **Instant deny:** Obvious time sinks (`Steam`, `Discord`, feed sites like `x.com`) close on the spot.
 - **Homepage allowlist:** I cannot blanket-allow YouTube, but I also cannot blanket-block it when I need to search for a tutorial. The `homepage_allow_list` lets root domains like `youtube.com` or `google.com` open so I can search. The moment I click a specific video (`/watch?v=...`) or article, it falls through to semantic inspection.
 
 ### Tier 1: In-Memory TTL Cache
+
 Switching between docs, local dev servers, and reference tabs should not trigger repeated network calls. Evaluation results are cached in memory for 15 minutes by intent, URL, and window metadata. If a page was already verified as relevant 30 seconds ago, it is re-approved immediately.
 
 ### Tier 2: Low-Latency Semantic Decisions
+
 When an activity is not cached and falls outside the static lists, `focusman` queries a lightweight [System One](https://docs.typesafe.ai/concepts/system-one) model (configured in my `config.toml`). Instead of asking a general conversational model, it uses an optimized classification schema:
-- **Alignment:** Labels the activity as *direct* (advancing the primary goal), *supporting* (docs, search queries, tools), *tangent* (productive tech work, but unrelated to current intent), or *distraction* (leisure, social feeds).
+
+- **Alignment:** Labels the activity as _direct_ (advancing the primary goal), _supporting_ (docs, search queries, tools), _tangent_ (productive tech work, but unrelated to current intent), or _distraction_ (leisure, social feeds).
 - **Off-Task Judgement:** A binary decision based on the stated intent.
 
 If the model classifies the activity as an off-task distraction, `focusman` closes the tab in Chromium or the window in Wayland.

@@ -223,59 +223,98 @@ const allThoughtsPosts = (
                     </div>
                 </div>
 
-                <div slot="devlog" class="space-y-2 px-5 md:px-9">
-                    {allDevlogPosts.map((p) => (
-                        <a
-                            href={`/devlog/${p.id}`}
-                            class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
-                        >
-                            <h2
-                                style={{
-                                    viewTransitionName: `devlog-title-${p.id}`,
-                                }}
-                                class="line-clamp-1 [view-transition-class:post-title]"
+                <div slot="devlog" class="px-8 md:px-12 divide-y divide-border">
+                    {allDevlogPosts.map((p) => {
+                        const date = new Date(p.data.pubDate);
+                        const formattedDate = date.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                        });
+
+                        return (
+                            <a
+                                href={`/devlog/${p.id}`}
+                                class="group block py-5 first:pt-1 last:pb-2 transition-colors"
                             >
-                                {p.data.title}
-                            </h2>
-                            <span class="text-muted shrink-0">
-                                {(() => {
-                                    const date = new Date(p.data.pubDate);
-                                    return date.toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                    });
-                                })()}
-                            </span>
-                        </a>
-                    ))}
+                                <div class="flex items-center gap-3 text-xs font-mono text-muted">
+                                    <time class="tabular-nums">
+                                        {formattedDate}
+                                    </time>
+                                    {p.data.tags && p.data.tags.length > 0 && (
+                                        <div class="flex gap-1.5">
+                                            {p.data.tags.map((tag) => (
+                                                <span class="text-muted/70 group-hover:text-muted transition-colors">
+                                                    [{tag}]
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                <div class="flex items-baseline justify-between gap-4 mt-1.5">
+                                    <h2
+                                        style={{
+                                            viewTransitionName: `devlog-title-${p.id}`,
+                                        }}
+                                        class="text-lg md:text-xl font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
+                                    >
+                                        {p.data.title}
+                                    </h2>
+                                    <span class="font-mono text-xs text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0">
+                                        →
+                                    </span>
+                                </div>
+                                <p class="text-sm text-muted leading-relaxed text-pretty mt-1 max-w-[65ch]">
+                                    {p.data.description}
+                                </p>
+                            </a>
+                        );
+                    })}
                 </div>
-                <div slot="thoughts" class="space-y-2 px-5 md:px-9">
-                    {allThoughtsPosts.map((p) => (
-                        <a
-                            href={`/thought/${p.id}`}
-                            class="flex gap-2 items-center justify-between hover:bg-muted/10 transition-colors duration-300 px-3 py-1 rounded-lg"
-                        >
-                            <h2
-                                style={{
-                                    viewTransitionName: `thought-title-${p.id}`,
-                                }}
-                                class="line-clamp-1 [view-transition-class:post-title]"
+                <div slot="thoughts" class="px-8 md:px-12 divide-y divide-border">
+                    {allThoughtsPosts.map((p) => {
+                        const date = new Date(p.data.pubDate);
+                        const formattedDate = date.toLocaleDateString("en-US", {
+                            year: "numeric",
+                            month: "short",
+                            day: "numeric",
+                        });
+
+                        return (
+                            <a
+                                href={`/thought/${p.id}`}
+                                class="group block py-5 first:pt-1 last:pb-2 transition-colors"
                             >
-                                {p.data.title}
-                            </h2>
-                            <span class="text-muted shrink-0">
-                                {(() => {
-                                    const date = new Date(p.data.pubDate);
-                                    return date.toLocaleDateString("en-US", {
-                                        year: "numeric",
-                                        month: "long",
-                                        day: "numeric",
-                                    });
-                                })()}
-                            </span>
-                        </a>
-                    ))}
+                                <div class="flex items-center gap-3 text-xs font-mono text-muted">
+                                    <time class="tabular-nums">
+                                        {formattedDate}
+                                    </time>
+                                    {p.data.tags && p.data.tags.length > 0 && (
+                                        <div class="flex gap-1.5">
+                                            {p.data.tags.map((tag) => (
+                                                <span class="text-muted/70 group-hover:text-muted transition-colors">
+                                                    [{tag}]
+                                                </span>
+                                            ))}
+                                        </div>
+                                    )}
+                                </div>
+                                <div class="flex items-baseline justify-between gap-4 mt-1.5">
+                                    <h2
+                                        style={{
+                                            viewTransitionName: `thought-title-${p.id}`,
+                                        }}
+                                        class="text-lg md:text-xl font-medium tracking-tight text-foreground/90 group-hover:underline underline-offset-4 decoration-muted/80 [view-transition-class:post-title]"
+                                    >
+                                        {p.data.title}
+                                    </h2>
+                                    <span class="font-mono text-xs text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0">
+                                        →
+                                    </span>
+                                </div>
+                            </a>
+                        );
+                    })}
                 </div>
             </HomeTabs>
         </section>
