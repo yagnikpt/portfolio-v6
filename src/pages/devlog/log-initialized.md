@@ -1,8 +1,7 @@
 ---
+layout: ../../layouts/Markdown.astro
 title: "Log Initialized"
 description: "Welcome to my devlog. This is an introduction post."
-pubDate: 2026-05-31
-tags: []
 ---
 
 This is where I log what I'm building and learning.

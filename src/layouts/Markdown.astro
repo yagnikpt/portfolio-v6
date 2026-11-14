@@ -1,0 +1,72 @@
+---
+import "@/styles/global.css";
+import { Font } from "astro:assets";
+import { Undo } from "@material-symbols-svg/astro/rounded";
+
+const { frontmatter } = Astro.props;
+const canonicalURL = new URL(Astro.url.pathname, Astro.site);
+---
+
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="canonical" href={canonicalURL} />
+        <meta name="generator" content={Astro.generator} />
+        <link rel="sitemap" href="/sitemap-index.xml" />
+        <Font cssVariable="--font-google-sans-flex" />
+        <Font cssVariable="--font-instrument-serif" />
+
+        <!-- Primary Meta Tags -->
+        <title>{frontmatter.title} - Yagnik Patel</title>
+        <meta name="title" content={`${frontmatter.title} - Yagnik Patel`} />
+        <meta name="description" content={frontmatter.description} />
+
+        <!-- Open Graph / Facebook -->
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content={Astro.url} />
+        <meta property="og:title" content={frontmatter.title} />
+        <meta property="og:site_name" content="Yagnik Patel" />
+        <meta property="og:description" content={frontmatter.description} />
+        <meta
+            property="og:image"
+            content={new URL("/devlog-og.webp", Astro.url)}
+        />
+
+        <!-- Twitter -->
+        <meta property="twitter:card" content="summary_large_image" />
+        <meta property="twitter:url" content={Astro.url} />
+        <meta property="twitter:title" content={frontmatter.title} />
+        <meta
+            property="twitter:description"
+            content={frontmatter.description}
+        />
+        <meta
+            property="twitter:image"
+            content={new URL("/devlog-og.webp", Astro.url)}
+        />
+    </head>
+
+    <body>
+        <main class="pt-20 lg:pt-32 max-w-2xl 2xl:max-w-3xl mx-auto max-sm:px-8">
+            <button
+                class="flex items-center gap-2 text-sm hover:bg-muted/10 py-1 px-2 transition-colors w-fit rounded-md cursor-default"
+                type="button"
+                onclick="window.history.back()"
+            >
+                <Undo class="size-4" />
+                <span>Back to Home</span>
+            </button>
+            <header class="my-6 py-4 border-b-2">
+                <h1 class="text-4xl md:text-5xl font-semibold font-serif w-fit">
+                    {frontmatter.title}
+                </h1>
+            </header>
+            <article class="prose dark:prose-invert max-w-none pb-20">
+                <slot />
+            </article>
+        </main>
+    </body>
+</html>

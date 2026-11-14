@@ -1,7 +1,7 @@
 ---
+layout: ../../layouts/Markdown.astro
 title: "Scratchpad"
-pubDate: 2026-05-31
-tags: []
+description: "Welcome to my scratchpad. This is an introduction post."
 ---
 
 This is where I dump ideas, observations, and personal notes.

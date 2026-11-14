@@ -45,7 +45,10 @@ export default function HomeTabs(props: Props) {
 		const updateDOM = () => {
 			setTab(nextTab);
 			if (shouldScrollToTabs) {
-				window.scrollTo({ top: restingTop, behavior: "instant" as ScrollBehavior });
+				window.scrollTo({
+					top: restingTop,
+					behavior: "instant" as ScrollBehavior,
+				});
 			}
 		};
 
@@ -131,10 +134,7 @@ export default function HomeTabs(props: Props) {
 					)}
 				</button>
 			</div>
-			<div
-				id="tabs-content"
-				class="mt-4 py-7 min-h-[calc(100svh-4rem)]"
-			>
+			<div id="tabs-content" class="mt-4 py-7 min-h-[calc(100svh-4rem)]">
 				<Switch>
 					<Match when={tab() === "info"}>{props.info}</Match>
 					<Match when={tab() === "devlog"}>{props.devlog}</Match>

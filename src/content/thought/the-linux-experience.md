@@ -4,24 +4,31 @@ pubDate: 2026-06-23
 tags: ["linux", "work"]
 ---
 
-Like most people, I started out on Windows. But the real problem is that Windows sucks now. My laptop is pretty old by modern standards (just 8 GB of RAM and an AMD Ryzen 4500U), and Windows 11 completely killed it.
+Like most people, I started out on Windows. But the real problem is that Windows sucks now. My laptop is pretty old by modern standards (just 8 GB of RAM and an AMD Ryzen 4500U), and Windows 11 completely choked it.
 
-### Windows experience
+### The Windows bloat
 
-Windows 10 ran fine on these specs, but Windows 11 was just too heavy. The laptop would boot up and immediately sit at 4 GB of idle RAM usage. What is even left for me to use at that point? Windows was trying to improve the developer experience with things like Windows Terminal and [PowerToys](https://github.com/microsoft/powertoys), but the bloated core OS ruined it. Eventually, writing code on Windows became impossible, and I had to switch to Linux.
+Windows 10 ran fine on these specs, but Windows 11 was simply too heavy. The machine would boot up and immediately sit at 4 GB of idle RAM usage. What is even left to work with at that point? Microsoft tried to improve the developer experience with things like Windows Terminal and [PowerToys](https://github.com/microsoft/powertoys), but the underlying OS bloat ruined it. Eventually, writing code with a browser and an editor open became unbearable, so I switched to Linux.
 
-### Linux effect
+### Life in the terminal
 
-The best part of switching is that my idle memory usage is now around 1.5 GB with my setup (running [Noctalia](https://github.com/noctalia-dev/noctalia) shell), which is awesome. From there, I slowly got used to living in the terminal. It might sound weird to non-Linux users, but it is actually fast and convenient. For example, I can use a simple command to search and install an app, check the status of a system service, or change how a tool behaves.
+The immediate payoff was memory: my idle RAM dropped to around 1.5 GB with my setup (running [Noctalia](https://github.com/noctalia-dev/noctalia) shell). From there, I slowly got comfortable living in the terminal. It might sound tedious to non-Linux users, but it is fast and convenient. Searching for an app, installing a package, checking a system service, or tweaking a tool's config is just a single command away.
 
-I now think entirely in commands and config files. That mental model shift is great for any power user who needs to touch different parts of the system. Instead of clicking through nested menus, I just use the direct path. Maybe Windows has ways to do this too, but Linux makes it the standard approach.
+I started thinking entirely in commands and plain text configs. It changed how I interact with my system: instead of clicking through layers of nested settings menus, everything has a direct path. Windows might have ways to do some of this, but on Linux it is the default way of working.
 
-### Experience so far
-People are often skeptical about daily-driving Linux because they think the UI is ugly, but that is not the case anymore. I spent way too much time ricing my desktop in the early days (a classic way to waste time), and I still tweak it sometimes. After installing Fedora GNOME, I never wanted to go back to Windows. I tried tiling window managers for a bit, but they do not make much sense on a small laptop screen. Then I found [niri](https://github.com/niri-wm/niri), which completely changed my workflow. The keybindings made me incredibly fast, and I could never go back to Windows for actual work.
+### Daily-driving and discovering niri
 
-### Some annoying parts
-Of course, I got hit by the classic Linux microphone driver issue. Even though the Linux kernel covers almost all laptops now, mine was somehow missed. The drivers selected the wrong hardware pin, blocking the real mic. I left it broken for months because I could not find a fix. Luckily, we have AI now. I gave it the hardware specs and behavior, and it found a kernel regression where a pin sort fix selected the wrong input pin instead of the internal mic. It gave me the steps to fix it manually, and it worked. It is a crazy time to be alive.
+People are often skeptical about daily-driving Linux because they think the desktop looks rough, but that has not been true for years. I spent way too much time ricing my desktop in the beginning (the classic time sink), though Fedora GNOME out of the box was already enough to keep me from ever looking back.
+
+Traditional tiling window managers never made much sense to me on a small laptop screen because splitting the screen into cramped tiles gets unusable fast. Then I found [niri](https://github.com/niri-wm/niri), a scrollable tiling compositor, which completely changed my workflow. The horizontal column model and keyboard navigation made me fast enough that I could never go back to Windows for real work.
+
+### The rough edges
+
+Of course, I ran into the classic Linux hardware curse: the microphone did not work. Even though the kernel supports most laptops out of the box, mine was an edge case. The audio driver selected the wrong hardware pin and ignored the internal mic. I left it broken for months because I could not find a working solution in forum threads.
+
+Eventually I dumped the hardware specs and audio codec behavior into an LLM, and it pointed me to a kernel regression where a pin-sort patch had misrouted the input pin. Following those manual fix steps actually resolved it. It is a crazy time to be alive.
 
 ### Final thoughts
 
-I think 2026 is gonna be year of the Linux desktop (meme btw), but Linux is genuinely usable for anyone now because of environments like GNOME and KDE. As a systems student, it is basically mandatory anyway, but I am glad it is something I actually enjoy using.
+2026 might finally be the year of the Linux desktop (meme btw), but modern environments like GNOME and KDE make it genuinely usable for everyday work. As someone studying systems, it is practically mandatory anyway, but I am glad it became something I actually enjoy using.
+
