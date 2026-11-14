@@ -1,6 +1,7 @@
 ---
 import { Image } from "astro:assets";
 import { getCollection } from "astro:content";
+import { ArrowRightAlt } from "@material-symbols-svg/astro/rounded"
 // import BannerImage from "@/assets/banner.webp";
 import GithubIcon from "@/assets/icons/social/github.svg";
 import InstagramIcon from "@/assets/icons/social/instagram.svg";
@@ -260,11 +261,9 @@ const allThoughtsPosts = (
                                     >
                                         {p.data.title}
                                     </h2>
-                                    <span class="font-mono text-xs text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0">
-                                        →
-                                    </span>
+                                    <ArrowRightAlt class="hidden md:block text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0" size={16} />
                                 </div>
-                                <p class="text-sm text-muted leading-relaxed text-pretty mt-1 max-w-[65ch]">
+                                <p class="text-sm text-foreground/70 leading-relaxed text-pretty mt-1 md:w-4/5 max-w-[65ch]">
                                     {p.data.description}
                                 </p>
                             </a>
@@ -308,9 +307,7 @@ const allThoughtsPosts = (
                                     >
                                         {p.data.title}
                                     </h2>
-                                    <span class="font-mono text-xs text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0">
-                                        →
-                                    </span>
+                                    <ArrowRightAlt class="hidden md:block text-muted group-hover:text-foreground group-hover:translate-x-1 transition-transform duration-150 shrink-0" size={16} />
                                 </div>
                             </a>
                         );
